@@ -10,6 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 
+# frontend install dir
+/frontend/node_modules
+
 # testing
 /coverage
 
