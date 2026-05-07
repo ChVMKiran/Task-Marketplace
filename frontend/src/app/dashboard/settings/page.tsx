@@ -4,7 +4,7 @@ import { User, Bell, Shield, Palette, Globe, Key, Mail, Smartphone, Moon, Sun, M
 
 function ToggleSwitch({ enabled = false }: { enabled?: boolean }) {
   return (
-    <div className={`w-10 h-6 rounded-full flex items-center px-0.5 cursor-pointer transition-colors ${enabled ? "bg-violet-500" : "bg-zinc-700"}`}>
+    <div className={`w-10 h-6 rounded-full flex items-center px-0.5 cursor-pointer transition-colors ${enabled ? "bg-violet-500" : "bg-slate-700"}`}>
       <div className={`w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${enabled ? "translate-x-4" : "translate-x-0"}`} />
     </div>
   );
@@ -15,19 +15,19 @@ export default function SettingsPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white">Settings</h1>
-        <p className="text-zinc-400 text-sm mt-1">Manage your account preferences</p>
+        <p className="text-slate-400 text-sm mt-1">Manage your account preferences</p>
       </div>
 
       {/* Profile settings */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-2xl p-6 space-y-5">
         <h2 className="text-base font-semibold text-white flex items-center gap-2"><User className="w-4 h-4 text-violet-400" /> Profile</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div><label className="text-sm text-zinc-400 mb-1.5 block">Full Name</label><input type="text" defaultValue="Arjun Mehta" className="input-field" /></div>
-          <div><label className="text-sm text-zinc-400 mb-1.5 block">Email</label><input type="email" defaultValue="arjun@campuscraft.io" className="input-field" /></div>
-          <div><label className="text-sm text-zinc-400 mb-1.5 block">Department</label><input type="text" defaultValue="Computer Science" className="input-field" /></div>
-          <div><label className="text-sm text-zinc-400 mb-1.5 block">Year</label><input type="text" defaultValue="3rd Year" className="input-field" /></div>
+          <div><label className="text-sm text-slate-400 mb-1.5 block">Full Name</label><input type="text" defaultValue="Arjun Mehta" className="input-field" /></div>
+          <div><label className="text-sm text-slate-400 mb-1.5 block">Email</label><input type="email" defaultValue="arjun@campuscraft.io" className="input-field" /></div>
+          <div><label className="text-sm text-slate-400 mb-1.5 block">Department</label><input type="text" defaultValue="Computer Science" className="input-field" /></div>
+          <div><label className="text-sm text-slate-400 mb-1.5 block">Year</label><input type="text" defaultValue="3rd Year" className="input-field" /></div>
         </div>
-        <div><label className="text-sm text-zinc-400 mb-1.5 block">Bio</label><textarea rows={3} defaultValue="Creative developer and designer." className="input-field resize-none" /></div>
+        <div><label className="text-sm text-slate-400 mb-1.5 block">Bio</label><textarea rows={3} defaultValue="Creative developer and designer." className="input-field resize-none" /></div>
         <button className="btn-primary text-sm px-6">Save Changes</button>
       </motion.div>
 
@@ -42,7 +42,7 @@ export default function SettingsPage() {
           { label: "Payout alerts", desc: "Payment processed notifications", enabled: true },
         ].map((item, i) => (
           <div key={i} className="flex items-center justify-between py-1">
-            <div><div className="text-sm text-white">{item.label}</div><div className="text-xs text-zinc-500">{item.desc}</div></div>
+            <div><div className="text-sm text-white">{item.label}</div><div className="text-xs text-slate-500">{item.desc}</div></div>
             <ToggleSwitch enabled={item.enabled} />
           </div>
         ))}
@@ -57,9 +57,9 @@ export default function SettingsPage() {
             { icon: Sun, label: "Light", active: false },
             { icon: Monitor, label: "System", active: false },
           ].map((theme) => (
-            <button key={theme.label} className={`p-3 rounded-xl border text-center transition-all ${theme.active ? "border-violet-500/50 bg-violet-500/10" : "border-zinc-800 hover:border-zinc-700"}`}>
-              <theme.icon className={`w-5 h-5 mx-auto mb-1 ${theme.active ? "text-violet-400" : "text-zinc-500"}`} />
-              <span className={`text-sm ${theme.active ? "text-white" : "text-zinc-400"}`}>{theme.label}</span>
+            <button key={theme.label} className={`p-3 rounded-xl border text-center transition-all ${theme.active ? "border-violet-500/50 bg-violet-500/10" : "border-navy-800 hover:border-slate-700"}`}>
+              <theme.icon className={`w-5 h-5 mx-auto mb-1 ${theme.active ? "text-violet-400" : "text-slate-500"}`} />
+              <span className={`text-sm ${theme.active ? "text-white" : "text-slate-400"}`}>{theme.label}</span>
             </button>
           ))}
         </div>

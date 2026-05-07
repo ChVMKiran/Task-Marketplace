@@ -5,7 +5,7 @@ import {
   TrendingUp, Clock, Trophy, Wallet, ArrowUpRight, ArrowDownRight,
   ChevronRight, Sparkles, Eye, FileCheck, Star
 } from "lucide-react";
-import { mockTasks, mockSubmissions, mockNotifications } from "@/lib/mock-data";
+import { useTasks, useSubmissions, useNotifications } from "@/lib/api";
 import { formatCurrency, formatRelativeTime } from "@/lib/utils";
 
 const stats = [
@@ -19,13 +19,17 @@ const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } }
 const fadeUp = { hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
 
 export default function DashboardPage() {
+  const { tasks: mockTasks, isLoading: loadingTasks } = useTasks();
+  const { submissions: mockSubmissions, isLoading: loadingSubs } = useSubmissions();
+  const { notifications: mockNotifications, isLoading: loadingNotifs } = useNotifications();
+
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Welcome */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Welcome back, Arjun 👋</h1>
-          <p className="text-zinc-400 text-sm mt-1">Here&apos;s what&apos;s happening with your account today.</p>
+          <p className="text-slate-400 text-sm mt-1">Here&apos;s what&apos;s happening with your account today.</p>
         </div>
         <Link href="/tasks" className="btn-primary text-sm flex items-center gap-1.5 hidden sm:flex">
           Browse Tasks <ChevronRight className="w-3.5 h-3.5" />
@@ -39,7 +43,7 @@ export default function DashboardPage() {
         </div>
         <div className="flex-1">
           <h3 className="text-sm font-semibold text-white mb-1">AI Insight</h3>
-          <p className="text-sm text-zinc-400">You have a 85% match rate with <span className="text-violet-300 font-medium">UI/UX Design</span> tasks. 3 new high-budget tasks were posted today that match your skills. Your win rate is 15% above average — keep it up!</p>
+          <p className="text-sm text-slate-400">You have a 85% match rate with <span className="text-violet-300 font-medium">UI/UX Design</span> tasks. 3 new high-budget tasks were posted today that match your skills. Your win rate is 15% above average — keep it up!</p>
         </div>
         <Link href="/tasks" className="btn-secondary text-xs px-3 py-1.5 shrink-0">View Matches</Link>
       </motion.div>
@@ -60,7 +64,7 @@ export default function DashboardPage() {
               )}
             </div>
             <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-            <div className="text-xs text-zinc-500">{stat.label}</div>
+            <div className="text-xs text-slate-500">{stat.label}</div>
           </motion.div>
         ))}
       </motion.div>
@@ -79,12 +83,12 @@ export default function DashboardPage() {
                   task.priority === "urgent" ? "bg-red-400" : task.priority === "high" ? "bg-yellow-400" : "bg-blue-400"
                 }`} />
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-zinc-200 truncate">{task.title}</div>
-                  <div className="text-xs text-zinc-500 mt-0.5">by {task.client.name} · {task.submissionCount} submissions</div>
+                  <div className="text-sm font-medium text-slate-200 truncate">{task.title}</div>
+                  <div className="text-xs text-slate-500 mt-0.5">by {task.client.name} · {task.submissionCount} submissions</div>
                 </div>
                 <div className="text-right shrink-0">
                   <div className="text-sm font-semibold text-white">{formatCurrency(task.budget)}</div>
-                  <div className="text-xs text-zinc-500">{task.deadline.slice(5)}</div>
+                  <div className="text-xs text-slate-500">{task.deadline.slice(5)}</div>
                 </div>
               </Link>
             ))}
@@ -110,8 +114,8 @@ export default function DashboardPage() {
                    <Star className="w-4 h-4 text-violet-400" />}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm text-zinc-300">{notif.title}</div>
-                  <div className="text-xs text-zinc-500 mt-0.5">{formatRelativeTime(notif.createdAt)}</div>
+                  <div className="text-sm text-slate-300">{notif.title}</div>
+                  <div className="text-xs text-slate-500 mt-0.5">{formatRelativeTime(notif.createdAt)}</div>
                 </div>
                 {!notif.read && <div className="w-2 h-2 rounded-full bg-violet-400 mt-2 shrink-0" />}
               </div>
@@ -129,12 +133,12 @@ export default function DashboardPage() {
         <div className="divide-y divide-white/5">
           {mockSubmissions.map((sub) => (
             <div key={sub.id} className="flex items-center gap-4 px-5 py-4 hover:bg-white/[0.02] transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-zinc-800/50 flex items-center justify-center">
-                <FileCheck className="w-5 h-5 text-zinc-400" />
+              <div className="w-10 h-10 rounded-xl bg-navy-800/50 flex items-center justify-center">
+                <FileCheck className="w-5 h-5 text-slate-400" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-zinc-200 truncate">{sub.task.title}</div>
-                <div className="text-xs text-zinc-500 mt-0.5">Version {sub.version} · {formatRelativeTime(sub.submittedAt)}</div>
+                <div className="text-sm font-medium text-slate-200 truncate">{sub.task.title}</div>
+                <div className="text-xs text-slate-500 mt-0.5">Version {sub.version} · {formatRelativeTime(sub.submittedAt)}</div>
               </div>
               <span className={`badge ${
                 sub.status === "winner" ? "badge-winner" :

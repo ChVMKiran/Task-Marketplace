@@ -2,15 +2,20 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, Clock, Users, Calendar, Tag, DollarSign, Upload, Star, Share2, Bookmark, AlertTriangle, FileCheck, Trophy, Eye } from "lucide-react";
-import { mockTasks, mockSubmissions } from "@/lib/mock-data";
+import { useTask, useSubmissions } from "@/lib/api";
 import { formatCurrency, formatDate } from "@/lib/utils";
 
-export default function TaskDetailPage() {
-  const task = mockTasks[0];
+export default function TaskDetailPage({ params }: { params: { id: string } }) {
+  const { task, isLoading: loadingTask } = useTask(params.id);
+  const { submissions: mockSubmissions, isLoading: loadingSubs } = useSubmissions(params.id);
+
+  if (loadingTask || !task) {
+    return <div className="text-center py-20 text-slate-400">Loading task details...</div>;
+  }
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors">
+      <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
         <ArrowLeft className="w-4 h-4" /> Back to Tasks
       </Link>
 
@@ -24,8 +29,8 @@ export default function TaskDetailPage() {
                 <span className="badge badge-urgent"><AlertTriangle className="w-3 h-3" /> High Priority</span>
               </div>
               <div className="flex items-center gap-2">
-                <button className="w-9 h-9 rounded-xl bg-zinc-800/50 hover:bg-zinc-700/50 flex items-center justify-center text-zinc-400 hover:text-white"><Bookmark className="w-4 h-4" /></button>
-                <button className="w-9 h-9 rounded-xl bg-zinc-800/50 hover:bg-zinc-700/50 flex items-center justify-center text-zinc-400 hover:text-white"><Share2 className="w-4 h-4" /></button>
+                <button className="w-9 h-9 rounded-xl bg-navy-800/50 hover:bg-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white"><Bookmark className="w-4 h-4" /></button>
+                <button className="w-9 h-9 rounded-xl bg-navy-800/50 hover:bg-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white"><Share2 className="w-4 h-4" /></button>
               </div>
             </div>
 
@@ -37,7 +42,7 @@ export default function TaskDetailPage() {
               </div>
               <div>
                 <div className="text-sm font-medium text-white">{task.client.name}</div>
-                <div className="flex items-center gap-1 text-xs text-zinc-500">
+                <div className="flex items-center gap-1 text-xs text-slate-500">
                   <Star className="w-3 h-3 fill-yellow-500 text-yellow-500" /> {task.client.rating} · {task.client.college}
                 </div>
               </div>
@@ -45,17 +50,17 @@ export default function TaskDetailPage() {
 
             <div>
               <h3 className="text-sm font-semibold text-white mb-2">Description</h3>
-              <p className="text-sm text-zinc-400 leading-relaxed whitespace-pre-line">{task.description}</p>
+              <p className="text-sm text-slate-400 leading-relaxed whitespace-pre-line">{task.description}</p>
             </div>
 
             <div className="mt-6">
               <h3 className="text-sm font-semibold text-white mb-2">Requirements</h3>
-              <div className="text-sm text-zinc-400 leading-relaxed whitespace-pre-line bg-zinc-900/50 rounded-xl p-4 border border-white/5">{task.requirements}</div>
+              <div className="text-sm text-slate-400 leading-relaxed whitespace-pre-line bg-navy-900/50 rounded-xl p-4 border border-white/5">{task.requirements}</div>
             </div>
 
             <div className="flex flex-wrap gap-2 mt-6">
               {task.tags.map((tag) => (
-                <span key={tag} className="px-3 py-1 rounded-lg bg-zinc-800/60 text-xs text-zinc-400 border border-zinc-700/30">{tag}</span>
+                <span key={tag} className="px-3 py-1 rounded-lg bg-navy-800/60 text-xs text-slate-400 border border-slate-700/30">{tag}</span>
               ))}
             </div>
           </motion.div>
@@ -74,8 +79,8 @@ export default function TaskDetailPage() {
                     {sub.contributor.name.split(" ").map(n => n[0]).join("")}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium text-zinc-200">{sub.contributor.name}</div>
-                    <div className="text-xs text-zinc-500 truncate">{sub.comment}</div>
+                    <div className="text-sm font-medium text-slate-200">{sub.contributor.name}</div>
+                    <div className="text-xs text-slate-500 truncate">{sub.comment}</div>
                   </div>
                   <span className={`badge ${sub.status === "winner" ? "badge-winner" : sub.status === "shortlisted" ? "badge-progress" : "badge-open"}`}>
                     {sub.status === "winner" && <Trophy className="w-3 h-3" />}
@@ -91,16 +96,16 @@ export default function TaskDetailPage() {
         <div className="space-y-4">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card rounded-2xl p-5 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-zinc-400">Budget</span>
+              <span className="text-sm text-slate-400">Budget</span>
               <span className="text-xl font-bold text-white">{formatCurrency(task.budget)}</span>
             </div>
             <div className="h-px bg-white/5" />
             <div className="space-y-3 text-sm">
-              <div className="flex justify-between"><span className="text-zinc-400 flex items-center gap-2"><Calendar className="w-4 h-4" /> Deadline</span><span className="text-white">{formatDate(task.deadline)}</span></div>
-              <div className="flex justify-between"><span className="text-zinc-400 flex items-center gap-2"><Users className="w-4 h-4" /> Submissions</span><span className="text-white">{task.submissionCount}</span></div>
-              <div className="flex justify-between"><span className="text-zinc-400 flex items-center gap-2"><Trophy className="w-4 h-4" /> Winners</span><span className="text-white">{task.maxWinners}</span></div>
-              <div className="flex justify-between"><span className="text-zinc-400 flex items-center gap-2"><Tag className="w-4 h-4" /> Category</span><span className="text-white capitalize">{task.category.replace("-", " ")}</span></div>
-              <div className="flex justify-between"><span className="text-zinc-400 flex items-center gap-2"><Eye className="w-4 h-4" /> Visibility</span><span className="text-white capitalize">{task.visibility}</span></div>
+              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Calendar className="w-4 h-4" /> Deadline</span><span className="text-white">{formatDate(task.deadline)}</span></div>
+              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Users className="w-4 h-4" /> Submissions</span><span className="text-white">{task.submissionCount}</span></div>
+              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Trophy className="w-4 h-4" /> Winners</span><span className="text-white">{task.maxWinners}</span></div>
+              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Tag className="w-4 h-4" /> Category</span><span className="text-white capitalize">{task.category.replace("-", " ")}</span></div>
+              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Eye className="w-4 h-4" /> Visibility</span><span className="text-white capitalize">{task.visibility}</span></div>
             </div>
             <div className="h-px bg-white/5" />
             <Link href="/dashboard/submissions/new" className="btn-primary w-full py-3 flex items-center justify-center gap-2 text-sm">
@@ -121,9 +126,9 @@ export default function TaskDetailPage() {
                 { value: "32", label: "Min" },
                 { value: "15", label: "Sec" },
               ].map((t, i) => (
-                <div key={i} className="bg-zinc-900/60 rounded-lg p-2 border border-white/5">
+                <div key={i} className="bg-navy-900/60 rounded-lg p-2 border border-white/5">
                   <div className="text-xl font-bold text-white">{t.value}</div>
-                  <div className="text-[10px] text-zinc-500 uppercase">{t.label}</div>
+                  <div className="text-[10px] text-slate-500 uppercase">{t.label}</div>
                 </div>
               ))}
             </div>

@@ -1,17 +1,19 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { mockTasks } from "@/lib/mock-data";
+import { useTasks } from "@/lib/api";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { PlusCircle, Clock, Filter, ChevronRight } from "lucide-react";
 
 export default function MyTasksPage() {
+  const { tasks: mockTasks, isLoading: loadingTasks } = useTasks();
+
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">My Tasks</h1>
-          <p className="text-zinc-400 text-sm mt-1">Manage all your posted tasks</p>
+          <p className="text-slate-400 text-sm mt-1">Manage all your posted tasks</p>
         </div>
         <Link href="/dashboard/tasks/create" className="btn-primary text-sm flex items-center gap-2">
           <PlusCircle className="w-4 h-4" /> New Task
@@ -29,8 +31,8 @@ export default function MyTasksPage() {
                 task.status === "open" ? "bg-blue-400" : task.status === "in-progress" ? "bg-yellow-400" : "bg-emerald-400"
               }`} />
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-zinc-200 truncate">{task.title}</div>
-                <div className="text-xs text-zinc-500 mt-0.5 flex items-center gap-2">
+                <div className="text-sm font-medium text-slate-200 truncate">{task.title}</div>
+                <div className="text-xs text-slate-500 mt-0.5 flex items-center gap-2">
                   <span className="capitalize">{task.category.replace("-", " ")}</span>
                   <span>·</span>
                   <span>{task.submissionCount} submissions</span>
@@ -42,7 +44,7 @@ export default function MyTasksPage() {
                 {task.status === "in-progress" ? "In Progress" : task.status.charAt(0).toUpperCase() + task.status.slice(1)}
               </span>
               <span className="text-sm font-semibold text-white">{formatCurrency(task.budget)}</span>
-              <ChevronRight className="w-4 h-4 text-zinc-600" />
+              <ChevronRight className="w-4 h-4 text-slate-600" />
             </Link>
           ))}
         </div>

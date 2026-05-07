@@ -38,14 +38,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                isActive(item.href) ? "bg-red-500/10 text-red-300 border border-red-500/20" : "text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.03]"
+                isActive(item.href) ? "bg-red-500/10 text-red-300 border border-red-500/20" : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]"
               }`}>
               <item.icon className="w-4.5 h-4.5" /> {item.label}
             </Link>
           ))}
         </nav>
         <div className="p-3 border-t border-white/5">
-          <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.03]">
+          <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]">
             <LogOut className="w-4.5 h-4.5" /> Back to App
           </Link>
         </div>
@@ -53,8 +53,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       <div className="flex-1 flex flex-col min-h-screen">
         <header className="h-16 border-b border-white/5 flex items-center px-6 bg-surface/50 backdrop-blur-xl sticky top-0 z-30">
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden text-zinc-400 mr-4"><Menu className="w-5 h-5" /></button>
-          <h2 className="text-sm font-medium text-zinc-400">CampusCraft Admin</h2>
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden text-slate-400 mr-4"><Menu className="w-5 h-5" /></button>
+          <h2 className="text-sm font-medium text-slate-400">CampusCraft Admin</h2>
         </header>
         <main className="flex-1 overflow-y-auto p-6">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>{children}</motion.div>
@@ -68,12 +68,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <motion.aside initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }} className="lg:hidden fixed left-0 top-0 bottom-0 w-72 bg-surface border-r border-white/5 z-50 flex flex-col">
               <div className="p-5 border-b border-white/5 flex justify-between items-center">
                 <span className="text-lg font-bold text-white">Admin</span>
-                <button onClick={() => setSidebarOpen(false)}><X className="w-5 h-5 text-zinc-400" /></button>
+                <button onClick={() => setSidebarOpen(false)}><X className="w-5 h-5 text-slate-400" /></button>
               </div>
               <nav className="flex-1 p-3 space-y-1">
                 {navItems.map((item) => (
                   <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm ${isActive(item.href) ? "bg-red-500/10 text-red-300" : "text-zinc-400"}`}>
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm ${isActive(item.href) ? "bg-red-500/10 text-red-300" : "text-slate-400"}`}>
                     <item.icon className="w-4.5 h-4.5" /> {item.label}
                   </Link>
                 ))}
