@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Bell, FileCheck, Wallet, Clock, MessageSquare, Star, Check, CheckCheck } from "lucide-react";
+import { Bell, FileCheck, Wallet, Clock, MessageSquare, Star, CheckCheck } from "lucide-react";
 import { useNotifications } from "@/lib/api";
 import { formatRelativeTime } from "@/lib/utils";
 
@@ -9,11 +9,11 @@ const iconMap: Record<string, typeof Bell> = { task: Clock, submission: FileChec
 const colorMap: Record<string, string> = { task: "bg-yellow-500/10 text-yellow-400", submission: "bg-blue-500/10 text-blue-400", payout: "bg-emerald-500/10 text-emerald-400", message: "bg-violet-500/10 text-violet-400", system: "bg-pink-500/10 text-pink-400" };
 
 export default function NotificationsPage() {
-  const { notifications: mockNotifications, isLoading: loadingNotifs } = useNotifications();
+  const { notifications: mockNotifications } = useNotifications();
 
   const [notifications, setNotifications] = useState(mockNotifications);
 
-  const markAllRead = () => setNotifications(notifications.map((n: any) => ({ ...n, read: true })));
+  const markAllRead = () => setNotifications(notifications.map((n: { id: string, type: string, title: string, message: string, createdAt: string, read: boolean }) => ({ ...n, read: true })));
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">

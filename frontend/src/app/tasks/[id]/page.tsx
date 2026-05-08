@@ -9,8 +9,36 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
   const { task, isLoading: loadingTask } = useTask(params.id);
   const { submissions: mockSubmissions, isLoading: loadingSubs } = useSubmissions(params.id);
 
-  if (loadingTask || !task) {
-    return <div className="text-center py-20 text-slate-400">Loading task details...</div>;
+  if (loadingTask) {
+    return (
+      <div className="max-w-5xl mx-auto space-y-6">
+        <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
+          <ArrowLeft className="w-4 h-4" /> Back to Tasks
+        </Link>
+        <div className="text-center py-20">
+          <div className="inline-flex items-center gap-2 text-slate-400">
+            <div className="w-4 h-4 border-2 border-slate-700 border-t-violet-400 rounded-full animate-spin" />
+            Loading task details...
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!task) {
+    return (
+      <div className="max-w-5xl mx-auto space-y-6">
+        <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
+          <ArrowLeft className="w-4 h-4" /> Back to Tasks
+        </Link>
+        <div className="text-center py-20">
+          <p className="text-slate-400 text-lg">Task not found</p>
+          <Link href="/tasks" className="text-violet-400 hover:text-violet-300 text-sm mt-4 inline-block">
+            Back to all tasks
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -25,12 +53,18 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-2xl p-6">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="badge badge-open">Open</span>
-                <span className="badge badge-urgent"><AlertTriangle className="w-3 h-3" /> High Priority</span>
+                <span className={`badge ${
+                  task.status === "open" ? "badge-open" : task.status === "in-progress" ? "badge-progress" : "badge-completed"
+                }`}>
+                  {task.status.charAt(0).toUpperCase() + task.status.slice(1)}
+                </span>
+                {task.priority === "high" || task.priority === "urgent" ? (
+                  <span className="badge badge-urgent"><AlertTriangle className="w-3 h-3" /> {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)} Priority</span>
+                ) : null}
               </div>
               <div className="flex items-center gap-2">
-                <button className="w-9 h-9 rounded-xl bg-navy-800/50 hover:bg-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white"><Bookmark className="w-4 h-4" /></button>
-                <button className="w-9 h-9 rounded-xl bg-navy-800/50 hover:bg-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white"><Share2 className="w-4 h-4" /></button>
+                <button className="w-9 h-9 rounded-xl bg-navy-800/50 hover:bg-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><Bookmark className="w-4 h-4" /></button>
+                <button className="w-9 h-9 rounded-xl bg-navy-800/50 hover:bg-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><Share2 className="w-4 h-4" /></button>
               </div>
             </div>
 
@@ -38,12 +72,12 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
 
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-sm font-semibold">
-                {task.client.name.split(" ").map(n => n[0]).join("")}
+                {task.client && task.client.name ? task.client.name.split(" ").map(n => n[0]).join("") : "CC"}
               </div>
               <div>
-                <div className="text-sm font-medium text-white">{task.client.name}</div>
+                <div className="text-sm font-medium text-white">{task.client?.name || "CampusCraft"}</div>
                 <div className="flex items-center gap-1 text-xs text-slate-500">
-                  <Star className="w-3 h-3 fill-yellow-500 text-yellow-500" /> {task.client.rating} · {task.client.college}
+                  <Star className="w-3 h-3 fill-yellow-500 text-yellow-500" /> {task.client?.rating || "N/A"} · {task.client?.college || "Campus"}
                 </div>
               </div>
             </div>

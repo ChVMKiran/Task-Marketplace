@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Search, Phone, Video, MoreVertical, Paperclip, Smile, ArrowLeft } from "lucide-react";
+import { Send, Search, Phone, Video, MoreVertical, Paperclip, ArrowLeft } from "lucide-react";
 import { useMessages } from "@/lib/api";
 import { mockUser, mockMessages } from "@/lib/mock-data";
 import { formatRelativeTime } from "@/lib/utils";
 
 export default function MessagesPage() {
-  const { conversations: mockConversations, isLoading: loadingMsgs } = useMessages();
+  const { conversations: mockConversations } = useMessages();
 
   const [selectedConv, setSelectedConv] = useState(mockConversations ? mockConversations[0] : null);
   const [messageInput, setMessageInput] = useState("");
@@ -33,7 +33,7 @@ export default function MessagesPage() {
             </div>
           </div>
           <div className="flex-1 overflow-y-auto">
-            {mockConversations.map((conv: any) => (
+            {mockConversations.map((conv: { id: string, participants: { name: string }[], updatedAt: string, taskTitle: string, lastMessage: { content: string }, unreadCount: number }) => (
               <button
                 key={conv.id}
                 onClick={() => { setSelectedConv(conv); setMobileShowChat(true); }}
@@ -81,7 +81,7 @@ export default function MessagesPage() {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-5 space-y-4">
-            {mockMessages.map((msg: any) => {
+            {mockMessages.map((msg: { id: string, senderId: string, content: string, createdAt: string }) => {
               const isMe = msg.senderId === mockUser.id;
               return (
                 <motion.div key={msg.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
