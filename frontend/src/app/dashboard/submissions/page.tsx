@@ -13,7 +13,7 @@ export default function SubmissionsPage() {
     id: `sub_extra_${i}`,
     taskId: t.id,
     task: t,
-    contributor: { ...mockSubmissions[0].contributor, id: `usr_extra_${i}`, name: ["Priya Das", "Kabir Jain", "Ishaan Nag", "Tara Bose"][i] },
+    contributor: { ...(mockSubmissions?.[0]?.contributor || { id: "usr_mock", name: "User", email: "user@example.com", role: "contributor" }), id: `usr_extra_${i}`, name: ["Priya Das", "Kabir Jain", "Ishaan Nag", "Tara Bose"][i] },
     files: [{ id: `file_x${i}`, name: `submission_${i}.zip`, url: "#", type: "application/zip", size: 5000000 }],
     comment: "Submission for task",
     status: (["pending", "shortlisted", "accepted", "rejected"] as const)[i],
@@ -68,13 +68,13 @@ export default function SubmissionsPage() {
                  <FileCheck className="w-5 h-5 text-slate-400" />}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-slate-200 truncate">{sub.task.title}</div>
+                <div className="text-sm font-medium text-slate-200 truncate">{sub.task?.title || "Unknown Task"}</div>
                 <div className="text-xs text-slate-500 mt-0.5 flex items-center gap-2">
-                  <span>v{sub.version}</span>
+                  <span>v{sub.version || 1}</span>
                   <span>·</span>
                   <span>{formatRelativeTime(sub.submittedAt)}</span>
                   <span>·</span>
-                  <span>{formatCurrency(sub.task.budget)}</span>
+                  <span>{formatCurrency(sub.task?.budget || 0)}</span>
                 </div>
               </div>
               <span className={`badge ${
@@ -83,7 +83,7 @@ export default function SubmissionsPage() {
                 sub.status === "accepted" ? "badge-completed" :
                 sub.status === "rejected" ? "badge-urgent" : "badge-open"
               }`}>
-                {sub.status.charAt(0).toUpperCase() + sub.status.slice(1)}
+                {sub.status ? sub.status.charAt(0).toUpperCase() + sub.status.slice(1) : "Pending"}
               </span>
               <ChevronRight className="w-4 h-4 text-slate-600 shrink-0" />
             </motion.div>

@@ -139,8 +139,8 @@ export default function DashboardPage() {
                 <FileCheck className="w-5 h-5 text-slate-400" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-slate-200 truncate">{sub.task.title}</div>
-                <div className="text-xs text-slate-500 mt-0.5">Version {sub.version} · {formatRelativeTime(sub.submittedAt)}</div>
+                <div className="text-sm font-medium text-slate-200 truncate">{sub.task?.title || "Unknown Task"}</div>
+                <div className="text-xs text-slate-500 mt-0.5">Version {sub.version || 1} · {formatRelativeTime(sub.submittedAt)}</div>
               </div>
               <span className={`badge ${
                 sub.status === "winner" ? "badge-winner" :
@@ -148,7 +148,7 @@ export default function DashboardPage() {
                 sub.status === "pending" ? "badge-open" : "badge-urgent"
               }`}>
                 {sub.status === "winner" && <Trophy className="w-3 h-3" />}
-                {sub.status.charAt(0).toUpperCase() + sub.status.slice(1)}
+                {sub.status ? sub.status.charAt(0).toUpperCase() + sub.status.slice(1) : "Pending"}
               </span>
             </div>
           ))}
