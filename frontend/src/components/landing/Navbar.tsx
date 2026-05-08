@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Zap, ChevronRight } from "lucide-react";
 
 const links = [
@@ -15,6 +16,14 @@ export default function Navbar() {
   const [scrolled,   setScrolled]   = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const pathname = usePathname();
+
+  const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   /* ── scroll + active section detection ── */
   useEffect(() => {
@@ -69,7 +78,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
+        <Link href="/" onClick={handleBrandClick} className="flex items-center gap-2.5 group">
           <motion.div
             whileHover={{ rotate: 10, scale: 1.1 }}
             transition={{ type: "spring", stiffness: 400, damping: 12 }}

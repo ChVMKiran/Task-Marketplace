@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Zap, ArrowRight, X, Globe, Link2, Mail, Camera } from "lucide-react";
 
 // lucide-react in this project removed social brand icons — use closest equivalents
@@ -48,6 +49,15 @@ const socialLinks = [
 ];
 
 export default function FooterSection() {
+  const pathname = usePathname();
+
+  const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       {/* ── CTA Section ── */}
@@ -124,7 +134,7 @@ export default function FooterSection() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
             {/* Brand column */}
             <div className="col-span-2">
-              <Link href="/" className="inline-flex items-center gap-2.5 mb-5 group">
+              <Link href="/" onClick={handleBrandClick} className="inline-flex items-center gap-2.5 mb-5 group">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition-shadow">
                   <Zap className="w-4.5 h-4.5 text-white" />
                 </div>
@@ -177,9 +187,9 @@ export default function FooterSection() {
           {/* Bottom bar */}
           <div className="gradient-divider mb-8" />
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-slate-600">
+            <Link href="/" onClick={handleBrandClick} className="text-xs text-slate-600 hover:text-violet-400 transition-colors">
               © 2026 CampusCraft. All rights reserved.
-            </p>
+            </Link>
             <p className="text-xs text-slate-600">
               Made with ❤️ for college students across India
             </p>
