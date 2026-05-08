@@ -7,6 +7,9 @@ import {
   Zap, LayoutDashboard, Users, ClipboardList, FileCheck, CreditCard,
   AlertTriangle, BarChart3, Settings, LogOut, Menu, X, Shield
 } from "lucide-react";
+import { useAuth } from "@/lib/auth-context";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const navItems = [
   { label: "Overview", href: "/admin", icon: LayoutDashboard },
@@ -21,7 +24,19 @@ const navItems = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (!user) router.push("/auth/login");
+      else if (user.role !== "admin") router.push("/dashboard");
+    }
+  }, [user, isLoading, router]);
+
   const isActive = (href: string) => pathname === href;
+
+  if (isLoading || !user || user.role !== "admin") return null;
 
   return (
     <div className="min-h-screen flex bg-background">

@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useTasks, useSubmissions, useNotifications } from "@/lib/api";
 import { formatCurrency, formatRelativeTime } from "@/lib/utils";
+import { useAuth } from "@/lib/auth-context";
 
 const stats = [
   { label: "Active Tasks", value: "24", change: "+12%", up: true, icon: Clock, color: "#3B82F6" },
@@ -19,6 +20,7 @@ const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } }
 const fadeUp = { hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
 
 export default function DashboardPage() {
+  const { user } = useAuth();
   const { tasks: mockTasks, isLoading: loadingTasks } = useTasks();
   const { submissions: mockSubmissions, isLoading: loadingSubs } = useSubmissions();
   const { notifications: mockNotifications, isLoading: loadingNotifs } = useNotifications();
@@ -28,7 +30,7 @@ export default function DashboardPage() {
       {/* Welcome */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Welcome back, Arjun 👋</h1>
+          <h1 className="text-2xl font-bold text-white">Welcome back, {user?.name ? user.name.split(' ')[0] : 'User'} 👋</h1>
           <p className="text-slate-400 text-sm mt-1">Here&apos;s what&apos;s happening with your account today.</p>
         </div>
         <Link href="/tasks" className="btn-primary text-sm flex items-center gap-1.5 hidden sm:flex">

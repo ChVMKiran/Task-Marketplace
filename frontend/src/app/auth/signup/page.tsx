@@ -21,8 +21,12 @@ export default function SignupPage() {
     setError("");
 
     try {
-      await register(name, email, password, role);
-      router.push("/dashboard");
+      const user = await register(name, email, password, role);
+      if (user.role === 'admin') {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err: any) {
       setError(err.message || "Registration failed");
     }

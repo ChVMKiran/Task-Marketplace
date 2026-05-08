@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,6 +7,8 @@ import {
   Zap, LayoutDashboard, ClipboardList, PlusCircle, FileCheck, MessageSquare,
   Wallet, BarChart3, Search, Bell, Settings, LogOut, Menu, X, ChevronDown, User
 } from "lucide-react";
+import { useAuth } from "@/lib/auth-context";
+import { useRouter } from "next/navigation";
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -27,8 +29,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const pathname = usePathname();
+  const { user, logout, isLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (!user) router.push("/auth/login");
+      else if (user.role === "admin") router.push("/admin");
+    }
+  }, [user, isLoading, router]);
+
+  const handleLogout = () => {
+    logout();
+    router.push("/");
+  };
 
   const isActive = (href: string) => pathname === href;
+
+  if (isLoading || !user || user.role === "admin") return null;
+
+  const initials = user?.name ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) : 'U';
 
   return (
     <div className="min-h-screen flex bg-background">
@@ -75,11 +95,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* User card */}
         <div className="p-3 border-t border-white/5">
-          <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/[0.03] cursor-pointer transition-all">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold">AM</div>
+          <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/[0.03] cursor-pointer transition-all" onClick={handleLogout}>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold">{initials}</div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white truncate">Arjun Mehta</div>
-              <div className="text-xs text-slate-500 truncate">Contributor</div>
+              <div className="text-sm font-medium text-white truncate">{user?.name || "User"}</div>
+              <div className="text-xs text-slate-500 truncate capitalize">{user?.role || "Contributor"}</div>
             </div>
             <LogOut className="w-4 h-4 text-slate-500 shrink-0" />
           </div>
@@ -143,7 +163,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
             <div className="relative">
               <button onClick={() => setProfileOpen(!profileOpen)} className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-white/[0.03] transition-all">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold">AM</div>
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold">{initials}</div>
                 <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
               </button>
 
@@ -156,8 +176,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     className="absolute right-0 top-12 w-56 glass-strong rounded-xl overflow-hidden shadow-2xl"
                   >
                     <div className="p-3 border-b border-white/5">
-                      <div className="text-sm font-medium text-white">Arjun Mehta</div>
-                      <div className="text-xs text-slate-500">arjun@campuscraft.io</div>
+                      <div className="text-sm font-medium text-white">{user?.name || "User"}</div>
+                      <div className="text-xs text-slate-500">{user?.email || "user@campuscraft.io"}</div>
                     </div>
                     <div className="p-1.5">
                       <Link href="/dashboard/profile" onClick={() => setProfileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/5 transition-colors">
@@ -166,9 +186,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                       <Link href="/dashboard/settings" onClick={() => setProfileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/5 transition-colors">
                         <Settings className="w-4 h-4" /> Settings
                       </Link>
-                      <Link href="/" className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-colors">
+                      <button onClick={handleLogout} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-colors">
                         <LogOut className="w-4 h-4" /> Sign out
-                      </Link>
+                      </button>
                     </div>
                   </motion.div>
                 )}
