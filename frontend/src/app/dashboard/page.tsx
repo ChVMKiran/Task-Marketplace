@@ -86,7 +86,7 @@ export default function DashboardPage() {
                 }`} />
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium text-slate-200 truncate">{task.title}</div>
-                  <div className="text-xs text-slate-500 mt-0.5">by {task.client.name} · {task.submissionCount} submissions</div>
+                  <div className="text-xs text-slate-500 mt-0.5">by {task.client?.name || "Unknown"} · {task.submissionCount} submissions</div>
                 </div>
                 <div className="text-right shrink-0">
                   <div className="text-sm font-semibold text-white">{formatCurrency(task.budget)}</div>
