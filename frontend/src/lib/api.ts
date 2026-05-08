@@ -31,7 +31,6 @@ export function useTasks(category?: string, search?: string) {
   
   const { data, error, isLoading } = useSWR([`/tasks?${query.toString()}`, null], fetcher, {
     onError: () => {}, // Suppress error logging for fallback
-    revalidateOnFocus: false,
   });
   
   // Filter mock data based on category and search
@@ -42,7 +41,7 @@ export function useTasks(category?: string, search?: string) {
   });
   
   // Use backend data if available, fallback to filtered mock data
-  const tasks = data?.tasks && data.tasks.length > 0 ? data?.tasks : filteredMockTasks;
+  const tasks = data?.tasks && data.tasks.length > 0 ? data.tasks.map((t: any) => ({...t, id: t._id || t.id})) : filteredMockTasks;
   
   return { tasks, isLoading: isLoading && !data, isError: error };
 }
@@ -50,12 +49,11 @@ export function useTasks(category?: string, search?: string) {
 export function useTask(id: string) {
   const { data, error, isLoading } = useSWR([`/tasks/${id}`, null], fetcher, {
     onError: () => {},
-    revalidateOnFocus: false,
   });
   
   // Fallback to mock data
   const mockTask = mockTasks.find((t) => t.id === id);
-  const task = data?.task || mockTask;
+  const task = data?.task ? { ...data.task, id: data.task._id || data.task.id } : mockTask;
   
   return { task, isLoading: isLoading && !data, isError: error && !mockTask };
 }
@@ -65,43 +63,38 @@ export function useSubmissions(taskId?: string) {
   const query = taskId ? `?taskId=${taskId}` : "";
   const { data, error, isLoading, mutate } = useSWR(token ? [`/submissions${query}`, token] : null, fetcher, {
     onError: () => {},
-    revalidateOnFocus: false,
   });
-  return { submissions: data?.submissions || [], isLoading: isLoading && !data, isError: error, mutate };
+  return { submissions: data?.submissions?.map((s: any) => ({...s, id: s._id || s.id})) || [], isLoading: isLoading && !data, isError: error, mutate };
 }
 
 export function useNotifications() {
   const { token } = useAuth();
   const { data, error, isLoading, mutate } = useSWR(token ? ["/notifications", token] : null, fetcher, {
     onError: () => {},
-    revalidateOnFocus: false,
   });
-  return { notifications: data?.notifications || [], isLoading: isLoading && !data, isError: error, mutate };
+  return { notifications: data?.notifications?.map((n: any) => ({...n, id: n._id || n.id})) || [], isLoading: isLoading && !data, isError: error, mutate };
 }
 
 export function useMessages() {
   const { token } = useAuth();
   const { data, error, isLoading } = useSWR(token ? ["/messages", token] : null, fetcher, {
     onError: () => {},
-    revalidateOnFocus: false,
   });
-  return { conversations: data?.conversations || [], isLoading: isLoading && !data, isError: error };
+  return { conversations: data?.conversations?.map((c: any) => ({...c, id: c._id || c.id})) || [], isLoading: isLoading && !data, isError: error };
 }
 
 export function useUsers() {
   const { token } = useAuth();
   const { data, error, isLoading } = useSWR(token ? ["/users", token] : null, fetcher, {
     onError: () => {},
-    revalidateOnFocus: false,
   });
-  return { users: data?.users || [], isLoading: isLoading && !data, isError: error };
+  return { users: data?.users?.map((u: any) => ({...u, id: u._id || u.id})) || [], isLoading: isLoading && !data, isError: error };
 }
 
 export function usePayments() {
   const { token } = useAuth();
   const { data, error, isLoading } = useSWR(token ? ["/payments", token] : null, fetcher, {
     onError: () => {},
-    revalidateOnFocus: false,
   });
-  return { payments: data?.payments || [], isLoading: isLoading && !data, isError: error };
+  return { payments: data?.payments?.map((p: any) => ({...p, id: p._id || p.id})) || [], isLoading: isLoading && !data, isError: error };
 }
