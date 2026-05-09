@@ -10,38 +10,38 @@ export default function CreateTaskPage() {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Create New Task</h1>
-        <p className="text-slate-400 text-sm mt-1">Post a creative task and receive submissions from talented students</p>
+        <h1 className="text-2xl font-bold text-black">Create New Task</h1>
+        <p className="text-neutral-600 text-sm mt-1">Post a creative task and receive submissions from talented students</p>
       </div>
 
       <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
         {/* Title */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-2xl p-6 space-y-5">
-          <h2 className="text-base font-semibold text-white flex items-center gap-2"><FileText className="w-4 h-4 text-violet-400" /> Task Details</h2>
+          <h2 className="text-base font-semibold text-black flex items-center gap-2"><FileText className="w-4 h-4 text-neutral-900" /> Task Details</h2>
 
           <div>
-            <label className="text-sm text-slate-400 mb-1.5 block">Task Title</label>
+            <label className="text-sm text-neutral-600 mb-1.5 block">Task Title</label>
             <input type="text" placeholder="e.g., Design a Modern Event Poster" className="input-field" />
           </div>
 
           <div>
-            <label className="text-sm text-slate-400 mb-1.5 block">Description</label>
+            <label className="text-sm text-neutral-600 mb-1.5 block">Description</label>
             <textarea rows={5} placeholder="Describe your task in detail..." className="input-field resize-none" />
           </div>
 
           <div>
-            <label className="text-sm text-slate-400 mb-1.5 block">Requirements</label>
+            <label className="text-sm text-neutral-600 mb-1.5 block">Requirements</label>
             <textarea rows={4} placeholder="List specific requirements..." className="input-field resize-none" />
           </div>
         </motion.div>
 
         {/* Category and budget */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card rounded-2xl p-6 space-y-5">
-          <h2 className="text-base font-semibold text-white flex items-center gap-2"><Tag className="w-4 h-4 text-violet-400" /> Classification</h2>
+          <h2 className="text-base font-semibold text-black flex items-center gap-2"><Tag className="w-4 h-4 text-neutral-900" /> Classification</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-sm text-slate-400 mb-1.5 block">Category</label>
+              <label className="text-sm text-neutral-600 mb-1.5 block">Category</label>
               <select className="input-field appearance-none cursor-pointer">
                 <option value="">Select category</option>
                 {TASK_CATEGORIES.map((cat) => (
@@ -50,7 +50,7 @@ export default function CreateTaskPage() {
               </select>
             </div>
             <div>
-              <label className="text-sm text-slate-400 mb-1.5 block">Submission Type</label>
+              <label className="text-sm text-neutral-600 mb-1.5 block">Submission Type</label>
               <select className="input-field appearance-none cursor-pointer">
                 <option value="">Select type</option>
                 <option value="image">Image / Poster</option>
@@ -64,27 +64,27 @@ export default function CreateTaskPage() {
           </div>
 
           <div>
-            <label className="text-sm text-slate-400 mb-1.5 block">Tags (comma separated)</label>
+            <label className="text-sm text-neutral-600 mb-1.5 block">Tags (comma separated)</label>
             <input type="text" placeholder="e.g., poster, event, design" className="input-field" />
           </div>
         </motion.div>
 
         {/* Budget & Deadline */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card rounded-2xl p-6 space-y-5">
-          <h2 className="text-base font-semibold text-white flex items-center gap-2"><DollarSign className="w-4 h-4 text-violet-400" /> Budget & Timeline</h2>
+          <h2 className="text-base font-semibold text-black flex items-center gap-2"><DollarSign className="w-4 h-4 text-neutral-900" /> Budget & Timeline</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-sm text-slate-400 mb-1.5 block">Budget (₹)</label>
+              <label className="text-sm text-neutral-600 mb-1.5 block">Budget (₹)</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">₹</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-600 text-sm">₹</span>
                 <input type="number" placeholder="5000" className="input-field pl-8" />
               </div>
             </div>
             <div>
-              <label className="text-sm text-slate-400 mb-1.5 block">Deadline</label>
+              <label className="text-sm text-neutral-600 mb-1.5 block">Deadline</label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
                 <input type="date" className="input-field pl-10" />
               </div>
             </div>
@@ -92,7 +92,7 @@ export default function CreateTaskPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="text-sm text-slate-400 mb-1.5 block">Priority</label>
+              <label className="text-sm text-neutral-600 mb-1.5 block">Priority</label>
               <select className="input-field appearance-none cursor-pointer">
                 {TASK_PRIORITIES.map((p) => (
                   <option key={p.value} value={p.value}>{p.label}</option>
@@ -100,11 +100,11 @@ export default function CreateTaskPage() {
               </select>
             </div>
             <div>
-              <label className="text-sm text-slate-400 mb-1.5 block">Max Winners</label>
+              <label className="text-sm text-neutral-600 mb-1.5 block">Max Winners</label>
               <input type="number" placeholder="1" min={1} max={10} className="input-field" />
             </div>
             <div>
-              <label className="text-sm text-slate-400 mb-1.5 block">Visibility</label>
+              <label className="text-sm text-neutral-600 mb-1.5 block">Visibility</label>
               <select className="input-field appearance-none cursor-pointer">
                 <option value="public">Public</option>
                 <option value="college-only">College Only</option>
@@ -116,11 +116,11 @@ export default function CreateTaskPage() {
 
         {/* Attachments */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="glass-card rounded-2xl p-6 space-y-4">
-          <h2 className="text-base font-semibold text-white flex items-center gap-2"><Upload className="w-4 h-4 text-violet-400" /> Attachments</h2>
-          <div className="border-2 border-dashed border-slate-700/50 rounded-xl p-8 text-center hover:border-violet-500/30 transition-colors cursor-pointer">
-            <Upload className="w-8 h-8 text-slate-500 mx-auto mb-3" />
-            <p className="text-sm text-slate-400">Drag & drop reference files here, or <span className="text-violet-400">browse</span></p>
-            <p className="text-xs text-slate-600 mt-1">PNG, JPG, PDF, ZIP up to 50MB</p>
+          <h2 className="text-base font-semibold text-black flex items-center gap-2"><Upload className="w-4 h-4 text-neutral-900" /> Attachments</h2>
+          <div className="border-2 border-dashed border-neutral-200 rounded-xl p-8 text-center hover:border-neutral-200 transition-colors cursor-pointer">
+            <Upload className="w-8 h-8 text-neutral-600 mx-auto mb-3" />
+            <p className="text-sm text-neutral-600">Drag & drop reference files here, or <span className="text-neutral-900">browse</span></p>
+            <p className="text-xs text-neutral-600 mt-1">PNG, JPG, PDF, ZIP up to 50MB</p>
           </div>
         </motion.div>
 

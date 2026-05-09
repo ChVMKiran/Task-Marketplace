@@ -51,15 +51,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const initials = user?.name ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) : 'U';
 
   return (
-    <div className="min-h-screen flex bg-background">
+    <div className="min-h-screen flex bg-white">
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 border-r border-white/5 bg-surface shrink-0">
-        <div className="p-5 border-b border-white/5">
+      <aside className="hidden lg:flex flex-col w-64 border-r border-neutral-200 bg-surface shrink-0">
+        <div className="p-5 border-b border-neutral-200">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
-              <Zap className="w-4 h-4 text-white" />
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center">
+              <Zap className="w-4 h-4 text-black" />
             </div>
-            <span className="text-lg font-bold text-white">Campus<span className="text-violet-400">Craft</span></span>
+            <span className="text-lg font-bold text-black">Campus<span className="text-neutral-900">Craft</span></span>
           </Link>
         </div>
 
@@ -70,8 +70,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               href={item.href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                 isActive(item.href)
-                  ? "bg-violet-500/10 text-violet-300 border border-violet-500/20"
-                  : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]"
+                  ? "bg-neutral-100 text-neutral-900 border border-neutral-200"
+                  : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/50"
               }`}
             >
               <item.icon className="w-4.5 h-4.5 shrink-0" />
@@ -80,12 +80,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           ))}
         </nav>
 
-        <div className="p-3 space-y-1 border-t border-white/5">
+        <div className="p-3 space-y-1 border-t border-neutral-200">
           {bottomItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-slate-200 hover:bg-white/[0.03] transition-all"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/50 transition-all"
             >
               <item.icon className="w-4.5 h-4.5" />
               {item.label}
@@ -94,14 +94,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
 
         {/* User card */}
-        <div className="p-3 border-t border-white/5">
-          <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/[0.03] cursor-pointer transition-all" onClick={handleLogout}>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold">{initials}</div>
+        <div className="p-3 border-t border-neutral-200">
+          <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-100/50 cursor-pointer transition-all" onClick={handleLogout}>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center text-black text-xs font-semibold">{initials}</div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white truncate">{user?.name || "User"}</div>
-              <div className="text-xs text-slate-500 truncate capitalize">{user?.role || "Contributor"}</div>
+              <div className="text-sm font-medium text-black truncate">{user?.name || "User"}</div>
+              <div className="text-xs text-neutral-600 truncate capitalize">{user?.role || "Contributor"}</div>
             </div>
-            <LogOut className="w-4 h-4 text-slate-500 shrink-0" />
+            <LogOut className="w-4 h-4 text-neutral-600 shrink-0" />
           </div>
         </div>
       </aside>
@@ -110,28 +110,28 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <AnimatePresence>
         {sidebarOpen && (
           <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="lg:hidden fixed inset-0 bg-black/60 z-40" onClick={() => setSidebarOpen(false)} />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="lg:hidden fixed inset-0 bg-[#000000]/60 z-40" onClick={() => setSidebarOpen(false)} />
             <motion.aside
               initial={{ x: -280 }}
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: "spring", damping: 25 }}
-              className="lg:hidden fixed left-0 top-0 bottom-0 w-72 bg-surface border-r border-white/5 z-50 flex flex-col"
+              className="lg:hidden fixed left-0 top-0 bottom-0 w-72 bg-surface border-r border-neutral-200 z-50 flex flex-col"
             >
-              <div className="p-5 border-b border-white/5 flex items-center justify-between">
+              <div className="p-5 border-b border-neutral-200 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
-                    <Zap className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center">
+                    <Zap className="w-4 h-4 text-black" />
                   </div>
-                  <span className="text-lg font-bold text-white">Campus<span className="text-violet-400">Craft</span></span>
+                  <span className="text-lg font-bold text-black">Campus<span className="text-neutral-900">Craft</span></span>
                 </Link>
-                <button onClick={() => setSidebarOpen(false)} className="text-slate-400"><X className="w-5 h-5" /></button>
+                <button onClick={() => setSidebarOpen(false)} className="text-neutral-600"><X className="w-5 h-5" /></button>
               </div>
               <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
                 {navItems.map((item) => (
                   <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                      isActive(item.href) ? "bg-violet-500/10 text-violet-300" : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]"
+                      isActive(item.href) ? "bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/50"
                     }`}>
                     <item.icon className="w-4.5 h-4.5" /> {item.label}
                   </Link>
@@ -145,26 +145,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Main content */}
       <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
         {/* Top bar */}
-        <header className="h-16 border-b border-white/5 flex items-center justify-between px-6 bg-surface/50 backdrop-blur-xl sticky top-0 z-30 shrink-0">
+        <header className="h-16 border-b border-neutral-200 flex items-center justify-between px-6 bg-surface/50 backdrop-blur-xl sticky top-0 z-30 shrink-0">
           <div className="flex items-center gap-4">
-            <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-slate-400 hover:text-white"><Menu className="w-5 h-5" /></button>
-            <div className="hidden sm:flex items-center gap-2 bg-navy-800/50 rounded-xl px-3 py-2 w-72">
-              <Search className="w-4 h-4 text-slate-500" />
-              <input type="text" placeholder="Search tasks, users..." className="bg-transparent text-sm text-white placeholder-slate-500 outline-none flex-1" />
-              <kbd className="text-[10px] text-slate-600 bg-navy-800 px-1.5 py-0.5 rounded">⌘K</kbd>
+            <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-neutral-600 hover:text-black"><Menu className="w-5 h-5" /></button>
+            <div className="hidden sm:flex items-center gap-2 bg-neutral-100 rounded-xl px-3 py-2 w-72">
+              <Search className="w-4 h-4 text-neutral-600" />
+              <input type="text" placeholder="Search tasks, users..." className="bg-transparent text-sm text-black placeholder-neutral-500 outline-none flex-1" />
+              <kbd className="text-[10px] text-neutral-600 bg-white px-1.5 py-0.5 rounded">⌘K</kbd>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <Link href="/dashboard/notifications" className="relative w-9 h-9 rounded-xl bg-navy-800/50 hover:bg-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+            <Link href="/dashboard/notifications" className="relative w-9 h-9 rounded-xl bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center text-neutral-600 hover:text-black transition-colors">
               <Bell className="w-4.5 h-4.5" />
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-violet-500 rounded-full text-[10px] text-white flex items-center justify-center font-medium">3</span>
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-neutral-100 rounded-full text-[10px] text-black flex items-center justify-center font-medium">3</span>
             </Link>
 
             <div className="relative">
-              <button onClick={() => setProfileOpen(!profileOpen)} className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-white/[0.03] transition-all">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold">{initials}</div>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+              <button onClick={() => setProfileOpen(!profileOpen)} className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-neutral-100/50 transition-all">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center text-black text-xs font-semibold">{initials}</div>
+                <ChevronDown className="w-3.5 h-3.5 text-neutral-600" />
               </button>
 
               <AnimatePresence>
@@ -175,15 +175,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     exit={{ opacity: 0, y: 8, scale: 0.95 }}
                     className="absolute right-0 top-12 w-56 glass-strong rounded-xl overflow-hidden shadow-2xl"
                   >
-                    <div className="p-3 border-b border-white/5">
-                      <div className="text-sm font-medium text-white">{user?.name || "User"}</div>
-                      <div className="text-xs text-slate-500">{user?.email || "user@campuscraft.io"}</div>
+                    <div className="p-3 border-b border-neutral-200">
+                      <div className="text-sm font-medium text-black">{user?.name || "User"}</div>
+                      <div className="text-xs text-neutral-600">{user?.email || "user@campuscraft.io"}</div>
                     </div>
                     <div className="p-1.5">
-                      <Link href="/dashboard/profile" onClick={() => setProfileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/5 transition-colors">
+                      <Link href="/dashboard/profile" onClick={() => setProfileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-neutral-600 hover:bg-neutral-100 transition-colors">
                         <User className="w-4 h-4" /> Profile
                       </Link>
-                      <Link href="/dashboard/settings" onClick={() => setProfileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/5 transition-colors">
+                      <Link href="/dashboard/settings" onClick={() => setProfileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-neutral-600 hover:bg-neutral-100 transition-colors">
                         <Settings className="w-4 h-4" /> Settings
                       </Link>
                       <button onClick={handleLogout} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-colors">

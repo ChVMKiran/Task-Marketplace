@@ -11,8 +11,8 @@ export default function AnalyticsPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Analytics</h1>
-        <p className="text-slate-400 text-sm mt-1">Track your performance and growth</p>
+        <h1 className="text-2xl font-bold text-black">Analytics</h1>
+        <p className="text-neutral-600 text-sm mt-1">Track your performance and growth</p>
       </div>
 
       {/* Stats row */}
@@ -30,8 +30,8 @@ export default function AnalyticsPage() {
               </div>
               <ArrowUpRight className="w-4 h-4 text-emerald-400" />
             </div>
-            <div className="text-2xl font-bold text-white">{stat.value}</div>
-            <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
+            <div className="text-2xl font-bold text-black">{stat.value}</div>
+            <div className="text-xs text-neutral-600 mt-1">{stat.label}</div>
           </motion.div>
         ))}
       </div>
@@ -39,19 +39,19 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Earnings chart (simplified bar chart) */}
         <div className="lg:col-span-2 glass-card rounded-2xl p-6">
-          <h3 className="text-sm font-semibold text-white mb-6">Monthly Earnings</h3>
+          <h3 className="text-sm font-semibold text-black mb-6">Monthly Earnings</h3>
           <div className="flex items-end gap-3 h-48">
             {data.monthlyData.map((d, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                <span className="text-[10px] text-slate-400">{formatCurrency(d.earnings).replace("₹", "₹")}</span>
+                <span className="text-[10px] text-neutral-600">{formatCurrency(d.earnings).replace("₹", "₹")}</span>
                 <motion.div
                   initial={{ height: 0 }}
                   animate={{ height: `${(d.earnings / maxEarning) * 100}%` }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
-                  className="w-full rounded-t-lg bg-gradient-to-t from-violet-600 to-violet-400 min-h-[4px]"
+                  className="w-full rounded-t-lg bg-gradient-to-t from-neutral-200 to-neutral-300 min-h-[4px]"
                   style={{ maxHeight: "100%" }}
                 />
-                <span className="text-[10px] text-slate-500">{d.month}</span>
+                <span className="text-[10px] text-neutral-600">{d.month}</span>
               </div>
             ))}
           </div>
@@ -59,20 +59,20 @@ export default function AnalyticsPage() {
 
         {/* Category breakdown */}
         <div className="glass-card rounded-2xl p-6">
-          <h3 className="text-sm font-semibold text-white mb-4">Category Breakdown</h3>
+          <h3 className="text-sm font-semibold text-black mb-4">Category Breakdown</h3>
           <div className="space-y-4">
             {data.categoryBreakdown.map((cat, i) => (
               <div key={i}>
                 <div className="flex items-center justify-between text-sm mb-1.5">
-                  <span className="text-slate-300">{cat.category}</span>
-                  <span className="text-slate-500">{cat.percentage}%</span>
+                  <span className="text-neutral-600">{cat.category}</span>
+                  <span className="text-neutral-600">{cat.percentage}%</span>
                 </div>
-                <div className="w-full h-2 bg-navy-800 rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-white rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${cat.percentage}%` }}
                     transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
-                    className="h-full rounded-full bg-gradient-to-r from-violet-500 to-indigo-500"
+                    className="h-full rounded-full bg-gradient-to-r from-neutral-200 to-neutral-400"
                   />
                 </div>
               </div>
@@ -83,18 +83,18 @@ export default function AnalyticsPage() {
 
       {/* Recent activity */}
       <div className="glass-card rounded-2xl overflow-hidden">
-        <div className="px-5 py-4 border-b border-white/5">
-          <h3 className="text-sm font-semibold text-white">Recent Activity</h3>
+        <div className="px-5 py-4 border-b border-neutral-200">
+          <h3 className="text-sm font-semibold text-black">Recent Activity</h3>
         </div>
-        <div className="divide-y divide-white/5">
+        <div className="divide-y divide-neutral-200">
           {data.recentActivity.map((activity, i) => (
-            <div key={i} className="px-5 py-3.5 flex items-center gap-4 hover:bg-white/[0.02]">
-              <div className="w-2 h-2 rounded-full bg-violet-400 shrink-0" />
+            <div key={i} className="px-5 py-3.5 flex items-center gap-4 hover:bg-neutral-100/50">
+              <div className="w-2 h-2 rounded-full bg-neutral-100 shrink-0" />
               <div className="flex-1">
-                <div className="text-sm text-slate-300">{activity.action}</div>
-                <div className="text-xs text-slate-500 mt-0.5">{activity.details}</div>
+                <div className="text-sm text-neutral-600">{activity.action}</div>
+                <div className="text-xs text-neutral-600 mt-0.5">{activity.details}</div>
               </div>
-              <span className="text-xs text-slate-500">{activity.timestamp.split("T")[0]}</span>
+              <span className="text-xs text-neutral-600">{activity.timestamp.split("T")[0]}</span>
             </div>
           ))}
         </div>

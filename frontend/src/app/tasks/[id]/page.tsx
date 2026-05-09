@@ -1,23 +1,25 @@
 "use client";
+import { use } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, Clock, Users, Calendar, Tag, DollarSign, Upload, Star, Share2, Bookmark, AlertTriangle, FileCheck, Trophy, Eye } from "lucide-react";
 import { useTask, useSubmissions } from "@/lib/api";
 import { formatCurrency, formatDate } from "@/lib/utils";
 
-export default function TaskDetailPage({ params }: { params: { id: string } }) {
-  const { task, isLoading: loadingTask } = useTask(params.id);
-  const { submissions: mockSubmissions, isLoading: loadingSubs } = useSubmissions(params.id);
+export default function TaskDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
+  const { task, isLoading: loadingTask } = useTask(resolvedParams.id);
+  const { submissions: mockSubmissions, isLoading: loadingSubs } = useSubmissions(resolvedParams.id);
 
   if (loadingTask) {
     return (
       <div className="max-w-5xl mx-auto space-y-6">
-        <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
+        <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-black transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Tasks
         </Link>
         <div className="text-center py-20">
-          <div className="inline-flex items-center gap-2 text-slate-400">
-            <div className="w-4 h-4 border-2 border-slate-700 border-t-violet-400 rounded-full animate-spin" />
+          <div className="inline-flex items-center gap-2 text-neutral-600">
+            <div className="w-4 h-4 border-2 border-neutral-200 border-t-neutral-900 rounded-full animate-spin" />
             Loading task details...
           </div>
         </div>
@@ -28,12 +30,12 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
   if (!task) {
     return (
       <div className="max-w-5xl mx-auto space-y-6">
-        <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
+        <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-black transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Tasks
         </Link>
         <div className="text-center py-20">
-          <p className="text-slate-400 text-lg">Task not found</p>
-          <Link href="/tasks" className="text-violet-400 hover:text-violet-300 text-sm mt-4 inline-block">
+          <p className="text-neutral-600 text-lg">Task not found</p>
+          <Link href="/tasks" className="text-neutral-900 hover:text-neutral-900 text-sm mt-4 inline-block">
             Back to all tasks
           </Link>
         </div>
@@ -43,7 +45,7 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
+      <Link href="/tasks" className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-black transition-colors">
         <ArrowLeft className="w-4 h-4" /> Back to Tasks
       </Link>
 
@@ -63,58 +65,58 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
                 ) : null}
               </div>
               <div className="flex items-center gap-2">
-                <button className="w-9 h-9 rounded-xl bg-navy-800/50 hover:bg-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><Bookmark className="w-4 h-4" /></button>
-                <button className="w-9 h-9 rounded-xl bg-navy-800/50 hover:bg-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><Share2 className="w-4 h-4" /></button>
+                <button className="w-9 h-9 rounded-xl bg-neutral-100/50 hover:bg-neutral-100/50 flex items-center justify-center text-neutral-600 hover:text-black transition-colors"><Bookmark className="w-4 h-4" /></button>
+                <button className="w-9 h-9 rounded-xl bg-neutral-100/50 hover:bg-neutral-100/50 flex items-center justify-center text-neutral-600 hover:text-black transition-colors"><Share2 className="w-4 h-4" /></button>
               </div>
             </div>
 
-            <h1 className="text-2xl font-bold text-white mb-4">{task.title}</h1>
+            <h1 className="text-2xl font-bold text-black mb-4">{task.title}</h1>
 
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-sm font-semibold">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center text-black text-sm font-semibold">
                 {task.client && task.client.name ? task.client.name.split(" ").map(n => n[0]).join("") : "CC"}
               </div>
               <div>
-                <div className="text-sm font-medium text-white">{task.client?.name || "CampusCraft"}</div>
-                <div className="flex items-center gap-1 text-xs text-slate-500">
+                <div className="text-sm font-medium text-black">{task.client?.name || "CampusCraft"}</div>
+                <div className="flex items-center gap-1 text-xs text-neutral-600">
                   <Star className="w-3 h-3 fill-yellow-500 text-yellow-500" /> {task.client?.rating || "N/A"} · {task.client?.college || "Campus"}
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold text-white mb-2">Description</h3>
-              <p className="text-sm text-slate-400 leading-relaxed whitespace-pre-line">{task.description}</p>
+              <h3 className="text-sm font-semibold text-black mb-2">Description</h3>
+              <p className="text-sm text-neutral-600 leading-relaxed whitespace-pre-line">{task.description}</p>
             </div>
 
             <div className="mt-6">
-              <h3 className="text-sm font-semibold text-white mb-2">Requirements</h3>
-              <div className="text-sm text-slate-400 leading-relaxed whitespace-pre-line bg-navy-900/50 rounded-xl p-4 border border-white/5">{task.requirements}</div>
+              <h3 className="text-sm font-semibold text-black mb-2">Requirements</h3>
+              <div className="text-sm text-neutral-600 leading-relaxed whitespace-pre-line bg-neutral-100/50 rounded-xl p-4 border border-neutral-200">{task.requirements}</div>
             </div>
 
             <div className="flex flex-wrap gap-2 mt-6">
               {task.tags.map((tag) => (
-                <span key={tag} className="px-3 py-1 rounded-lg bg-navy-800/60 text-xs text-slate-400 border border-slate-700/30">{tag}</span>
+                <span key={tag} className="px-3 py-1 rounded-lg bg-neutral-100/50 text-xs text-neutral-600 border border-neutral-200">{tag}</span>
               ))}
             </div>
           </motion.div>
 
           {/* Submissions preview */}
           <div className="glass-card rounded-2xl overflow-hidden">
-            <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                <FileCheck className="w-4 h-4 text-violet-400" /> Submissions ({task.submissionCount})
+            <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-black flex items-center gap-2">
+                <FileCheck className="w-4 h-4 text-neutral-900" /> Submissions ({task.submissionCount})
               </h3>
             </div>
             <div className="divide-y divide-white/5">
               {mockSubmissions.slice(0, 2).map((sub) => (
                 <div key={sub.id} className="px-5 py-4 flex items-center gap-4 hover:bg-white/[0.02]">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-xs font-semibold">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neutral-300 to-cyan-500 flex items-center justify-center text-black text-xs font-semibold">
                     {sub.contributor.name.split(" ").map(n => n[0]).join("")}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium text-slate-200">{sub.contributor.name}</div>
-                    <div className="text-xs text-slate-500 truncate">{sub.comment}</div>
+                    <div className="text-sm font-medium text-neutral-600">{sub.contributor.name}</div>
+                    <div className="text-xs text-neutral-600 truncate">{sub.comment}</div>
                   </div>
                   <span className={`badge ${sub.status === "winner" ? "badge-winner" : sub.status === "shortlisted" ? "badge-progress" : "badge-open"}`}>
                     {sub.status === "winner" && <Trophy className="w-3 h-3" />}
@@ -130,16 +132,16 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
         <div className="space-y-4">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card rounded-2xl p-5 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-slate-400">Budget</span>
-              <span className="text-xl font-bold text-white">{formatCurrency(task.budget)}</span>
+              <span className="text-sm text-neutral-600">Budget</span>
+              <span className="text-xl font-bold text-black">{formatCurrency(task.budget)}</span>
             </div>
             <div className="h-px bg-white/5" />
             <div className="space-y-3 text-sm">
-              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Calendar className="w-4 h-4" /> Deadline</span><span className="text-white">{formatDate(task.deadline)}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Users className="w-4 h-4" /> Submissions</span><span className="text-white">{task.submissionCount}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Trophy className="w-4 h-4" /> Winners</span><span className="text-white">{task.maxWinners}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Tag className="w-4 h-4" /> Category</span><span className="text-white capitalize">{task.category.replace("-", " ")}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400 flex items-center gap-2"><Eye className="w-4 h-4" /> Visibility</span><span className="text-white capitalize">{task.visibility}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-600 flex items-center gap-2"><Calendar className="w-4 h-4" /> Deadline</span><span className="text-black">{formatDate(task.deadline)}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-600 flex items-center gap-2"><Users className="w-4 h-4" /> Submissions</span><span className="text-black">{task.submissionCount}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-600 flex items-center gap-2"><Trophy className="w-4 h-4" /> Winners</span><span className="text-black">{task.maxWinners}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-600 flex items-center gap-2"><Tag className="w-4 h-4" /> Category</span><span className="text-black capitalize">{task.category.replace("-", " ")}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-600 flex items-center gap-2"><Eye className="w-4 h-4" /> Visibility</span><span className="text-black capitalize">{task.visibility}</span></div>
             </div>
             <div className="h-px bg-white/5" />
             <Link href="/dashboard/submissions/new" className="btn-primary w-full py-3 flex items-center justify-center gap-2 text-sm">
@@ -151,7 +153,7 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <Clock className="w-4 h-4 text-yellow-400" />
-              <span className="text-sm font-semibold text-white">Time Remaining</span>
+              <span className="text-sm font-semibold text-black">Time Remaining</span>
             </div>
             <div className="grid grid-cols-4 gap-2 text-center">
               {[
@@ -160,9 +162,9 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
                 { value: "32", label: "Min" },
                 { value: "15", label: "Sec" },
               ].map((t, i) => (
-                <div key={i} className="bg-navy-900/60 rounded-lg p-2 border border-white/5">
-                  <div className="text-xl font-bold text-white">{t.value}</div>
-                  <div className="text-[10px] text-slate-500 uppercase">{t.label}</div>
+                <div key={i} className="bg-neutral-100/50 rounded-lg p-2 border border-neutral-200">
+                  <div className="text-xl font-bold text-black">{t.value}</div>
+                  <div className="text-[10px] text-neutral-600 uppercase">{t.label}</div>
                 </div>
               ))}
             </div>

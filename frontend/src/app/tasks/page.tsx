@@ -27,14 +27,14 @@ export default function TasksPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Task Marketplace</h1>
-        <p className="text-slate-400 text-sm mt-1">Discover creative tasks and start earning</p>
+        <h1 className="text-2xl font-bold text-black">Task Marketplace</h1>
+        <p className="text-neutral-600 text-sm mt-1">Discover creative tasks and start earning</p>
       </div>
 
       {/* Search and filters */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
           <input
             type="text"
             value={searchQuery}
@@ -65,7 +65,7 @@ export default function TasksPage() {
         <button
           onClick={() => handleCategoryChange("all")}
           className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
-            selectedCategory === "all" ? "bg-violet-500/20 text-violet-300 border border-violet-500/30" : "bg-navy-800/50 text-slate-400 border border-slate-700/50 hover:border-slate-600"
+            selectedCategory === "all" ? "bg-neutral-100 text-neutral-900 border border-neutral-200" : "bg-neutral-50/50 text-neutral-600 border border-neutral-200 hover:border-neutral-200"
           }`}
         >
           All Tasks
@@ -75,7 +75,7 @@ export default function TasksPage() {
             key={cat.value}
             onClick={() => handleCategoryChange(cat.value)}
             className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
-              selectedCategory === cat.value ? "bg-violet-500/20 text-violet-300 border border-violet-500/30" : "bg-navy-800/50 text-slate-400 border border-slate-700/50 hover:border-slate-600"
+              selectedCategory === cat.value ? "bg-neutral-100 text-neutral-900 border border-neutral-200" : "bg-neutral-50/50 text-neutral-600 border border-neutral-200 hover:border-neutral-200"
             }`}
           >
             {cat.label}
@@ -85,7 +85,7 @@ export default function TasksPage() {
 
       {/* Results header */}
       <div className="flex items-center justify-between">
-        <div className="text-sm text-slate-500">
+        <div className="text-sm text-neutral-600">
           {isLoading ? (
             <span className="flex items-center gap-2">
               <Loader className="w-4 h-4 animate-spin" /> Loading tasks...
@@ -101,17 +101,17 @@ export default function TasksPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {[...Array(6)].map((_, i) => (
             <div key={i} className="glass-card rounded-2xl p-5 h-64 animate-pulse">
-              <div className="bg-slate-700/50 h-6 rounded w-1/3 mb-4" />
-              <div className="bg-slate-700/50 h-4 rounded w-full mb-2" />
-              <div className="bg-slate-700/50 h-4 rounded w-5/6 mb-4" />
-              <div className="bg-slate-700/50 h-20 rounded mt-auto" />
+              <div className="bg-neutral-100 h-6 rounded w-1/3 mb-4" />
+              <div className="bg-neutral-100 h-4 rounded w-full mb-2" />
+              <div className="bg-neutral-100 h-4 rounded w-5/6 mb-4" />
+              <div className="bg-neutral-100 h-20 rounded mt-auto" />
             </div>
           ))}
         </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-slate-400 text-lg">No tasks found matching your criteria.</p>
-          <p className="text-slate-500 text-sm mt-2">Try adjusting your search or filters.</p>
+          <p className="text-neutral-600 text-lg">No tasks found matching your criteria.</p>
+          <p className="text-neutral-600 text-sm mt-2">Try adjusting your search or filters.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -122,7 +122,7 @@ export default function TasksPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
             >
-              <Link href={`/tasks/${task.id}`} className="block glass-card rounded-2xl p-5 h-full group hover:border-violet-500/50 transition-all">
+              <Link href={`/tasks/${task.id}`} className="block glass-card rounded-2xl p-5 h-full group hover:border-neutral-200 transition-all">
                 <div className="flex items-start justify-between mb-3">
                   <span className={`badge ${
                     task.status === "open" ? "badge-open" : task.status === "in-progress" ? "badge-progress" : "badge-completed"
@@ -131,47 +131,47 @@ export default function TasksPage() {
                   </span>
                   <button
                     onClick={(e) => { e.preventDefault(); }}
-                    className="text-slate-600 hover:text-violet-400 transition-colors"
+                    className="text-neutral-600 hover:text-neutral-900 transition-colors"
                   >
                     <Bookmark className="w-4 h-4" />
                   </button>
                 </div>
 
-                <h3 className="text-base font-semibold text-white mb-2 line-clamp-2 group-hover:text-violet-300 transition-colors">
+                <h3 className="text-base font-semibold text-black mb-2 line-clamp-2 group-hover:text-neutral-900 transition-colors">
                   {task.title}
                 </h3>
 
-                <p className="text-sm text-slate-500 line-clamp-2 mb-4">{task.description}</p>
+                <p className="text-sm text-neutral-600 line-clamp-2 mb-4">{task.description}</p>
 
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {task.tags.slice(0, 3).map((tag) => (
-                    <span key={tag} className="px-2 py-0.5 rounded-md bg-navy-800/60 text-xs text-slate-400 border border-slate-700/30">
+                    <span key={tag} className="px-2 py-0.5 rounded-md bg-neutral-100/50 text-xs text-neutral-600 border border-neutral-200">
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                <div className="flex items-center justify-between pt-3 border-t border-neutral-200">
                   <div className="flex items-center gap-4">
-                    <span className="flex items-center gap-1 text-xs text-slate-400">
+                    <span className="flex items-center gap-1 text-xs text-neutral-600">
                       <Clock className="w-3.5 h-3.5" />
                       {new Date(task.deadline).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-slate-400">
+                    <span className="flex items-center gap-1 text-xs text-neutral-600">
                       <Users className="w-3.5 h-3.5" />
                       {task.submissionCount}
                     </span>
                   </div>
-                  <span className="text-sm font-bold text-white">{formatCurrency(task.budget)}</span>
+                  <span className="text-sm font-bold text-black">{formatCurrency(task.budget)}</span>
                 </div>
 
-                <div className="flex items-center gap-2 mt-3 pt-3 border-t border-white/5">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-[10px] text-white font-semibold">
+                <div className="flex items-center gap-2 mt-3 pt-3 border-t border-neutral-200">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center text-[10px] text-black font-semibold">
                     {task.client && task.client.name ? task.client.name.split(" ").map(n => n[0]).join("") : "CC"}
                   </div>
-                  <span className="text-xs text-slate-400">{task.client?.name || "CampusCraft"}</span>
+                  <span className="text-xs text-neutral-600">{task.client?.name || "CampusCraft"}</span>
                   <div className="flex-1" />
-                  <ArrowUpRight className="w-4 h-4 text-slate-600 group-hover:text-violet-400 transition-colors" />
+                  <ArrowUpRight className="w-4 h-4 text-neutral-600 group-hover:text-neutral-900 transition-colors" />
                 </div>
               </Link>
             </motion.div>

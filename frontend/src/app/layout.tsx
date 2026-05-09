@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "CampusCraft — The Creative Marketplace for College Students",
@@ -23,15 +24,11 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        {/* Persist theme before first paint to avoid flash */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}}catch(e){document.documentElement.classList.add('dark')}})()`,
-          }}
-        />
       </head>
-      <body className="antialiased">
-        <AuthProvider>{children}</AuthProvider>
+      <body className="antialiased bg-white text-black transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

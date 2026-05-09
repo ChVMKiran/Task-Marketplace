@@ -30,8 +30,8 @@ export default function DashboardPage() {
       {/* Welcome */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Welcome back, {user?.name ? user.name.split(' ')[0] : 'User'} 👋</h1>
-          <p className="text-slate-400 text-sm mt-1">Here&apos;s what&apos;s happening with your account today.</p>
+          <h1 className="text-2xl font-bold text-black">Welcome back, {user?.name ? user.name.split(' ')[0] : 'User'} 👋</h1>
+          <p className="text-neutral-600 text-sm mt-1">Here&apos;s what&apos;s happening with your account today.</p>
         </div>
         <Link href="/tasks" className="btn-primary text-sm flex items-center gap-1.5 hidden sm:flex">
           Browse Tasks <ChevronRight className="w-3.5 h-3.5" />
@@ -40,12 +40,12 @@ export default function DashboardPage() {
 
       {/* AI Insight Banner */}
       <motion.div variants={fadeUp} initial="hidden" animate="visible" className="glass-card rounded-2xl p-5 flex items-start gap-4 glow-purple">
-        <div className="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0">
-          <Sparkles className="w-5 h-5 text-violet-400" />
+        <div className="w-10 h-10 rounded-xl bg-neutral-100 border border-neutral-200 flex items-center justify-center shrink-0">
+          <Sparkles className="w-5 h-5 text-black" />
         </div>
         <div className="flex-1">
-          <h3 className="text-sm font-semibold text-white mb-1">AI Insight</h3>
-          <p className="text-sm text-slate-400">You have a 85% match rate with <span className="text-violet-300 font-medium">UI/UX Design</span> tasks. 3 new high-budget tasks were posted today that match your skills. Your win rate is 15% above average — keep it up!</p>
+          <h3 className="text-sm font-semibold text-black mb-1">AI Insight</h3>
+          <p className="text-sm text-neutral-600">You have a 85% match rate with <span className="text-neutral-900 font-medium">UI/UX Design</span> tasks. 3 new high-budget tasks were posted today that match your skills. Your win rate is 15% above average — keep it up!</p>
         </div>
         <Link href="/tasks" className="btn-secondary text-xs px-3 py-1.5 shrink-0">View Matches</Link>
       </motion.div>
@@ -65,8 +65,8 @@ export default function DashboardPage() {
                 </span>
               )}
             </div>
-            <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-            <div className="text-xs text-slate-500">{stat.label}</div>
+            <div className="text-2xl font-bold text-black mb-1">{stat.value}</div>
+            <div className="text-xs text-neutral-600">{stat.label}</div>
           </motion.div>
         ))}
       </motion.div>
@@ -74,23 +74,23 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Tasks */}
         <div className="lg:col-span-2 glass-card rounded-2xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-white">Trending Tasks</h3>
-            <Link href="/tasks" className="text-xs text-violet-400 hover:text-violet-300">View all</Link>
+          <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-black">Trending Tasks</h3>
+            <Link href="/tasks" className="text-xs text-neutral-900 hover:text-neutral-900">View all</Link>
           </div>
-          <div className="divide-y divide-white/5">
+          <div className="divide-y divide-neutral-200">
             {mockTasks.slice(0, 5).map((task, i) => (
-              <Link key={task.id} href={`/tasks/${task.id}`} className="flex items-center gap-4 px-5 py-3.5 hover:bg-white/[0.02] transition-colors">
+              <Link key={task.id} href={`/tasks/${task.id}`} className="flex items-center gap-4 px-5 py-3.5 hover:bg-neutral-100/50 transition-colors">
                 <div className={`w-2 h-2 rounded-full shrink-0 ${
-                  task.priority === "urgent" ? "bg-red-400" : task.priority === "high" ? "bg-yellow-400" : "bg-blue-400"
+                  task.priority === "urgent" ? "bg-red-400" : task.priority === "high" ? "bg-yellow-400" : "bg-neutral-100"
                 }`} />
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-slate-200 truncate">{task.title}</div>
-                  <div className="text-xs text-slate-500 mt-0.5">by {task.client?.name || "Unknown"} · {task.submissionCount} submissions</div>
+                  <div className="text-sm font-medium text-neutral-600 truncate">{task.title}</div>
+                  <div className="text-xs text-neutral-600 mt-0.5">by {task.client?.name || "Unknown"} · {task.submissionCount} submissions</div>
                 </div>
                 <div className="text-right shrink-0">
-                  <div className="text-sm font-semibold text-white">{formatCurrency(task.budget)}</div>
-                  <div className="text-xs text-slate-500">{task.deadline.slice(5)}</div>
+                  <div className="text-sm font-semibold text-black">{formatCurrency(task.budget)}</div>
+                  <div className="text-xs text-neutral-600">{task.deadline.slice(5)}</div>
                 </div>
               </Link>
             ))}
@@ -99,27 +99,27 @@ export default function DashboardPage() {
 
         {/* Activity Feed */}
         <div className="glass-card rounded-2xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-white/5">
-            <h3 className="text-sm font-semibold text-white">Recent Activity</h3>
+          <div className="px-5 py-4 border-b border-neutral-200">
+            <h3 className="text-sm font-semibold text-black">Recent Activity</h3>
           </div>
-          <div className="divide-y divide-white/5">
+          <div className="divide-y divide-neutral-200">
             {mockNotifications.slice(0, 5).map((notif) => (
               <div key={notif.id} className="px-5 py-3.5 flex items-start gap-3">
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
-                  notif.type === "submission" ? "bg-blue-500/10" :
+                  notif.type === "submission" ? "bg-neutral-100" :
                   notif.type === "payout" ? "bg-emerald-500/10" :
-                  notif.type === "task" ? "bg-yellow-500/10" : "bg-violet-500/10"
+                  notif.type === "task" ? "bg-yellow-500/10" : "bg-neutral-100"
                 }`}>
-                  {notif.type === "submission" ? <FileCheck className="w-4 h-4 text-blue-400" /> :
+                  {notif.type === "submission" ? <FileCheck className="w-4 h-4 text-neutral-900" /> :
                    notif.type === "payout" ? <Wallet className="w-4 h-4 text-emerald-400" /> :
                    notif.type === "task" ? <Clock className="w-4 h-4 text-yellow-400" /> :
-                   <Star className="w-4 h-4 text-violet-400" />}
+                   <Star className="w-4 h-4 text-neutral-900" />}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm text-slate-300">{notif.title}</div>
-                  <div className="text-xs text-slate-500 mt-0.5">{formatRelativeTime(notif.createdAt)}</div>
+                  <div className="text-sm text-neutral-600">{notif.title}</div>
+                  <div className="text-xs text-neutral-600 mt-0.5">{formatRelativeTime(notif.createdAt)}</div>
                 </div>
-                {!notif.read && <div className="w-2 h-2 rounded-full bg-violet-400 mt-2 shrink-0" />}
+                {!notif.read && <div className="w-2 h-2 rounded-full bg-neutral-100 mt-2 shrink-0" />}
               </div>
             ))}
           </div>
@@ -128,19 +128,19 @@ export default function DashboardPage() {
 
       {/* Recent Submissions */}
       <div className="glass-card rounded-2xl overflow-hidden">
-        <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-white">Your Recent Submissions</h3>
-          <Link href="/dashboard/submissions" className="text-xs text-violet-400 hover:text-violet-300">View all</Link>
+        <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-black">Your Recent Submissions</h3>
+          <Link href="/dashboard/submissions" className="text-xs text-neutral-900 hover:text-neutral-900">View all</Link>
         </div>
-        <div className="divide-y divide-white/5">
+        <div className="divide-y divide-neutral-200">
           {mockSubmissions.map((sub) => (
-            <div key={sub.id} className="flex items-center gap-4 px-5 py-4 hover:bg-white/[0.02] transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-navy-800/50 flex items-center justify-center">
-                <FileCheck className="w-5 h-5 text-slate-400" />
+            <div key={sub.id} className="flex items-center gap-4 px-5 py-4 hover:bg-neutral-100/50 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center">
+                <FileCheck className="w-5 h-5 text-neutral-600" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-slate-200 truncate">{sub.task?.title || "Unknown Task"}</div>
-                <div className="text-xs text-slate-500 mt-0.5">Version {sub.version || 1} · {formatRelativeTime(sub.submittedAt)}</div>
+                <div className="text-sm font-medium text-neutral-600 truncate">{sub.task?.title || "Unknown Task"}</div>
+                <div className="text-xs text-neutral-600 mt-0.5">Version {sub.version || 1} · {formatRelativeTime(sub.submittedAt)}</div>
               </div>
               <span className={`badge ${
                 sub.status === "winner" ? "badge-winner" :

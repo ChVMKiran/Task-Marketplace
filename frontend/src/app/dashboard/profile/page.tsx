@@ -11,18 +11,18 @@ export default function ProfilePage() {
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Profile header */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-2xl p-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-violet-500/10 via-transparent to-blue-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-200/10 via-transparent to-neutral-400/10" />
         <div className="relative flex flex-col sm:flex-row items-start gap-6">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-violet-500/20">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center text-black text-2xl font-bold shadow-lg shadow-neutral-200">
             {user.name.split(" ").map(n => n[0]).join("")}
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-2xl font-bold text-white">{user.name}</h1>
+              <h1 className="text-2xl font-bold text-black">{user.name}</h1>
               {user.isVerified && <span className="badge badge-completed">✓ Verified</span>}
             </div>
-            <p className="text-slate-400 text-sm mb-3">{user.bio}</p>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500">
+            <p className="text-neutral-600 text-sm mb-3">{user.bio}</p>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-neutral-600">
               <span className="flex items-center gap-1"><Briefcase className="w-3.5 h-3.5" /> {user.role}</span>
               <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {user.college}</span>
               <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> {user.department} · {user.year}</span>
@@ -43,28 +43,28 @@ export default function ProfilePage() {
         ].map((s, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className="glass-card rounded-2xl p-5 text-center">
             <s.icon className="w-6 h-6 mx-auto mb-2" style={{ color: s.color }} />
-            <div className="text-xl font-bold text-white">{s.value}</div>
-            <div className="text-xs text-slate-500 mt-1">{s.label}</div>
+            <div className="text-xl font-bold text-black">{s.value}</div>
+            <div className="text-xs text-neutral-600 mt-1">{s.label}</div>
           </motion.div>
         ))}
       </div>
 
       {/* Skills */}
       <div className="glass-card rounded-2xl p-6">
-        <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><Award className="w-4 h-4 text-violet-400" /> Skills</h3>
+        <h3 className="text-sm font-semibold text-black mb-4 flex items-center gap-2"><Award className="w-4 h-4 text-neutral-900" /> Skills</h3>
         <div className="flex flex-wrap gap-2">
           {user.skills?.map((skill) => (
-            <span key={skill} className="px-3 py-1.5 rounded-lg bg-violet-500/10 border border-violet-500/20 text-sm text-violet-300">{skill}</span>
+            <span key={skill} className="px-3 py-1.5 rounded-lg bg-neutral-100 border border-neutral-200 text-sm text-neutral-900">{skill}</span>
           ))}
         </div>
       </div>
 
       {/* Portfolio links */}
       <div className="glass-card rounded-2xl p-6">
-        <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><ExternalLink className="w-4 h-4 text-violet-400" /> Portfolio</h3>
+        <h3 className="text-sm font-semibold text-black mb-4 flex items-center gap-2"><ExternalLink className="w-4 h-4 text-neutral-900" /> Portfolio</h3>
         <div className="space-y-2">
           {user.portfolioLinks?.map((link) => (
-            <a key={link} href={link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-slate-400 hover:text-violet-300 transition-colors">
+            <a key={link} href={link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 transition-colors">
               <ExternalLink className="w-3.5 h-3.5" /> {link}
             </a>
           ))}

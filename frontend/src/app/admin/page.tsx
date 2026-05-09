@@ -28,8 +28,8 @@ export default function AdminDashboard() {
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Shield className="w-6 h-6 text-red-400" /> Admin Overview</h1>
-        <p className="text-slate-400 text-sm mt-1">Platform metrics and management</p>
+        <h1 className="text-2xl font-bold text-black flex items-center gap-2"><Shield className="w-6 h-6 text-red-400" /> Admin Overview</h1>
+        <p className="text-neutral-600 text-sm mt-1">Platform metrics and management</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -41,8 +41,8 @@ export default function AdminDashboard() {
               </div>
               <ArrowUpRight className="w-4 h-4 text-emerald-400" />
             </div>
-            <div className="text-2xl font-bold text-white">{stat.value}</div>
-            <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
+            <div className="text-2xl font-bold text-black">{stat.value}</div>
+            <div className="text-xs text-neutral-600 mt-1">{stat.label}</div>
             <div className="text-xs text-emerald-400 mt-0.5">{stat.change}</div>
           </motion.div>
         ))}
@@ -51,19 +51,19 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent users */}
         <div className="glass-card rounded-2xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-white">Recent Users</h3>
+          <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-black">Recent Users</h3>
             <span className="text-xs text-red-400">Manage</span>
           </div>
           <div className="divide-y divide-white/5">
             {recentUsers.map((user, i) => (
               <div key={i} className="px-5 py-3 flex items-center gap-3 hover:bg-white/[0.02]">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center text-black text-xs font-semibold">
                   {user.name.split(" ").map(n => n[0]).join("")}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm text-slate-200 truncate">{user.name}</div>
-                  <div className="text-xs text-slate-500">{user.college} · {user.role}</div>
+                  <div className="text-sm text-neutral-600 truncate">{user.name}</div>
+                  <div className="text-xs text-neutral-600">{user.college} · {user.role}</div>
                 </div>
                 <span className={`text-xs px-2 py-0.5 rounded-full ${
                   user.status === "active" ? "bg-emerald-500/10 text-emerald-400" :
@@ -76,28 +76,28 @@ export default function AdminDashboard() {
 
         {/* Recent payments */}
         <div className="glass-card rounded-2xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-white">Pending Payouts</h3>
+          <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-black">Pending Payouts</h3>
             <span className="text-xs text-red-400">Review all</span>
           </div>
           <div className="divide-y divide-white/5">
             {recentPayments.map((payment, i) => (
               <div key={i} className="px-5 py-3 flex items-center gap-3 hover:bg-white/[0.02]">
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                  payment.status === "completed" ? "bg-emerald-500/10" : payment.status === "pending" ? "bg-yellow-500/10" : "bg-blue-500/10"
+                  payment.status === "completed" ? "bg-emerald-500/10" : payment.status === "pending" ? "bg-yellow-500/10" : "bg-neutral-100"
                 }`}>
                   <CreditCard className={`w-4 h-4 ${
-                    payment.status === "completed" ? "text-emerald-400" : payment.status === "pending" ? "text-yellow-400" : "text-blue-400"
+                    payment.status === "completed" ? "text-emerald-400" : payment.status === "pending" ? "text-yellow-400" : "text-neutral-900"
                   }`} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm text-slate-200">{payment.user}</div>
-                  <div className="text-xs text-slate-500">{payment.task}</div>
+                  <div className="text-sm text-neutral-600">{payment.user}</div>
+                  <div className="text-xs text-neutral-600">{payment.task}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-semibold text-white">{payment.amount}</div>
+                  <div className="text-sm font-semibold text-black">{payment.amount}</div>
                   <span className={`text-xs ${
-                    payment.status === "completed" ? "text-emerald-400" : payment.status === "pending" ? "text-yellow-400" : "text-blue-400"
+                    payment.status === "completed" ? "text-emerald-400" : payment.status === "pending" ? "text-yellow-400" : "text-neutral-900"
                   }`}>{payment.status}</span>
                 </div>
               </div>
@@ -108,7 +108,7 @@ export default function AdminDashboard() {
 
       {/* Platform activity chart */}
       <div className="glass-card rounded-2xl p-6">
-        <h3 className="text-sm font-semibold text-white mb-6 flex items-center gap-2"><Activity className="w-4 h-4 text-red-400" /> Platform Activity (Last 7 Days)</h3>
+        <h3 className="text-sm font-semibold text-black mb-6 flex items-center gap-2"><Activity className="w-4 h-4 text-red-400" /> Platform Activity (Last 7 Days)</h3>
         <div className="flex items-end gap-2 h-40">
           {[65, 80, 45, 90, 75, 95, 70].map((val, i) => (
             <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${val}%` }} transition={{ delay: i * 0.1, duration: 0.5 }}
@@ -117,7 +117,7 @@ export default function AdminDashboard() {
         </div>
         <div className="flex justify-between mt-2">
           {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => (
-            <span key={d} className="text-[10px] text-slate-500 flex-1 text-center">{d}</span>
+            <span key={d} className="text-[10px] text-neutral-600 flex-1 text-center">{d}</span>
           ))}
         </div>
       </div>

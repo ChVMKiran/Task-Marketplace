@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Zap, ChevronRight } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   { label: "Features",     href: "#features" },
@@ -72,7 +73,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "glass-strong shadow-xl shadow-violet-950/40 border-b border-violet-500/10"
+          ? "glass-strong shadow-xl shadow-neutral-200 border-b border-neutral-200"
           : "bg-transparent"
       }`}
     >
@@ -82,12 +83,12 @@ export default function Navbar() {
           <motion.div
             whileHover={{ rotate: 10, scale: 1.1 }}
             transition={{ type: "spring", stiffness: 400, damping: 12 }}
-            className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/30 group-hover:shadow-violet-500/60 transition-shadow duration-300"
+            className="w-9 h-9 rounded-xl bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center shadow-lg shadow-neutral-200 group-hover:shadow-neutral-200 transition-shadow duration-300"
           >
-            <Zap className="w-4.5 h-4.5 text-white" />
+            <Zap className="w-4.5 h-4.5 text-black" />
           </motion.div>
-          <span className="text-lg font-bold tracking-tight text-white">
-            Campus<span className="text-violet-400">Craft</span>
+          <span className="text-lg font-bold tracking-tight text-black">
+            Campus<span className="text-neutral-900">Craft</span>
           </span>
         </Link>
 
@@ -101,15 +102,15 @@ export default function Navbar() {
                 onClick={() => smoothScroll(l.href)}
                 className={`relative text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 ${
                   isActive
-                    ? "text-violet-300 bg-violet-500/10"
-                    : "text-slate-300 hover:text-violet-300 hover:bg-violet-500/8"
+                    ? "text-neutral-900 bg-neutral-100"
+                    : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100"
                 }`}
               >
                 {l.label}
                 {isActive && (
                   <motion.div
                     layoutId="nav-active"
-                    className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-violet-400"
+                    className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-neutral-100"
                     transition={{ type: "spring", stiffness: 380, damping: 28 }}
                   />
                 )}
@@ -120,9 +121,10 @@ export default function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           <Link
             href="/auth/login"
-            className="text-sm font-medium text-slate-300 hover:text-violet-300 px-4 py-2 transition-colors duration-200"
+            className="text-sm font-medium text-neutral-600 hover:text-neutral-900 px-4 py-2 transition-colors duration-200"
           >
             Log in
           </Link>
@@ -139,10 +141,11 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle />
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-300 bg-violet-900/20 border border-violet-500/20 transition-all hover:bg-violet-900/40"
+            className="w-9 h-9 rounded-xl flex items-center justify-center text-neutral-600 bg-neutral-100 border border-neutral-200 transition-all hover:bg-neutral-100"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -167,7 +170,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden glass-strong border-t border-violet-500/20 overflow-hidden"
+            className="md:hidden glass-strong border-t border-neutral-200 overflow-hidden"
           >
             <div className="px-6 py-5 flex flex-col gap-1">
               {links.map((l, i) => (
@@ -177,12 +180,12 @@ export default function Navbar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                   onClick={() => smoothScroll(l.href)}
-                  className="text-sm font-medium text-slate-300 hover:text-violet-300 py-2.5 px-3 rounded-lg hover:bg-violet-900/20 transition-all text-left"
+                  className="text-sm font-medium text-neutral-600 hover:text-neutral-900 py-2.5 px-3 rounded-lg hover:bg-neutral-100 transition-all text-left"
                 >
                   {l.label}
                 </motion.button>
               ))}
-              <div className="flex gap-3 pt-4 mt-2 border-t border-violet-500/20">
+              <div className="flex gap-3 pt-4 mt-2 border-t border-neutral-200">
                 <Link
                   href="/auth/login"
                   onClick={() => setMobileOpen(false)}
