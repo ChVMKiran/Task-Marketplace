@@ -52,9 +52,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <nav className="flex-1 p-3 space-y-1">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                isActive(item.href) ? "bg-red-500/10 text-red-300 border border-red-500/20" : "text-neutral-600 hover:text-neutral-600 hover:bg-white/[0.03]"
-              }`}>
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${isActive(item.href) ? "bg-red-500/10 text-red-300 border border-red-500/20" : "text-neutral-600 hover:text-neutral-600 hover:bg-white/[0.03]"
+                }`}>
               <item.icon className="w-4.5 h-4.5" /> {item.label}
             </Link>
           ))}
@@ -69,7 +68,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="flex-1 flex flex-col min-h-screen">
         <header className="h-16 border-b border-neutral-200 flex items-center px-6 bg-surface/50 backdrop-blur-xl sticky top-0 z-30">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden text-neutral-600 mr-4"><Menu className="w-5 h-5" /></button>
-          <h2 className="text-sm font-medium text-neutral-600">CampusCraft Admin</h2>
+          <h2 className="text-sm font-medium text-neutral-600">Task-Marketplace Admin</h2>
         </header>
         <main className="flex-1 overflow-y-auto p-6">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>{children}</motion.div>

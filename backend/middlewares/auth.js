@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     if (!token) return res.status(401).json({ success: false, message: 'No token provided' });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'campuscraft_secret_key');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'Task-Marketplace_secret_key');
     const user = await User.findById(decoded.id).select('-password');
     if (!user) return res.status(401).json({ success: false, message: 'User not found' });
 

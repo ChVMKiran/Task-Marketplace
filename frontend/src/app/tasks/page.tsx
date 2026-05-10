@@ -10,12 +10,12 @@ import { TASK_CATEGORIES } from "@/lib/constants";
 export default function TasksPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  
+
   const { tasks, isLoading } = useTasks(selectedCategory, searchQuery);
 
   const filtered = tasks.filter((t) => {
-    const matchSearch = t.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                       t.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchSearch = t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchCat = selectedCategory === "all" || t.category === selectedCategory;
     return matchSearch && matchCat;
   });
@@ -64,9 +64,8 @@ export default function TasksPage() {
       <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
         <button
           onClick={() => handleCategoryChange("all")}
-          className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
-            selectedCategory === "all" ? "bg-neutral-100 text-neutral-900 border border-neutral-200" : "bg-neutral-50/50 text-neutral-600 border border-neutral-200 hover:border-neutral-200"
-          }`}
+          className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${selectedCategory === "all" ? "bg-neutral-100 text-neutral-900 border border-neutral-200" : "bg-neutral-50/50 text-neutral-600 border border-neutral-200 hover:border-neutral-200"
+            }`}
         >
           All Tasks
         </button>
@@ -74,9 +73,8 @@ export default function TasksPage() {
           <button
             key={cat.value}
             onClick={() => handleCategoryChange(cat.value)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
-              selectedCategory === cat.value ? "bg-neutral-100 text-neutral-900 border border-neutral-200" : "bg-neutral-50/50 text-neutral-600 border border-neutral-200 hover:border-neutral-200"
-            }`}
+            className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${selectedCategory === cat.value ? "bg-neutral-100 text-neutral-900 border border-neutral-200" : "bg-neutral-50/50 text-neutral-600 border border-neutral-200 hover:border-neutral-200"
+              }`}
           >
             {cat.label}
           </button>
@@ -124,9 +122,8 @@ export default function TasksPage() {
             >
               <Link href={`/tasks/${task.id}`} className="block glass-card rounded-2xl p-5 h-full group hover:border-neutral-200 transition-all">
                 <div className="flex items-start justify-between mb-3">
-                  <span className={`badge ${
-                    task.status === "open" ? "badge-open" : task.status === "in-progress" ? "badge-progress" : "badge-completed"
-                  }`}>
+                  <span className={`badge ${task.status === "open" ? "badge-open" : task.status === "in-progress" ? "badge-progress" : "badge-completed"
+                    }`}>
                     {task.status === "open" ? "Open" : task.status === "in-progress" ? "In Progress" : task.status}
                   </span>
                   <button
@@ -169,7 +166,7 @@ export default function TasksPage() {
                   <div className="w-6 h-6 rounded-full bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center text-[10px] text-black font-semibold">
                     {task.client && task.client.name ? task.client.name.split(" ").map(n => n[0]).join("") : "CC"}
                   </div>
-                  <span className="text-xs text-neutral-600">{task.client?.name || "CampusCraft"}</span>
+                  <span className="text-xs text-neutral-600">{task.client?.name || "Task-Marketplace"}</span>
                   <div className="flex-1" />
                   <ArrowUpRight className="w-4 h-4 text-neutral-600 group-hover:text-neutral-900 transition-colors" />
                 </div>

@@ -1,19 +1,41 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Bell, FileCheck, Wallet, Clock, MessageSquare, Star, CheckCheck } from "lucide-react";
-import { useNotifications } from "@/lib/api";
+import { Bell, FileCheck, Wallet, Clock, MessageSquare, Star, CheckCheck, Loader } from "lucide-react";
+import { useNotifications, apiPut } from "@/lib/api";
+import { mockNotifications as fallbackNotifications } from "@/lib/mock-data";
 import { formatRelativeTime } from "@/lib/utils";
+import { useAuth } from "@/lib/auth-context";
 
 const iconMap: Record<string, typeof Bell> = { task: Clock, submission: FileCheck, payout: Wallet, message: MessageSquare, system: Star };
 const colorMap: Record<string, string> = { task: "bg-yellow-500/10 text-yellow-400", submission: "bg-neutral-100 text-neutral-900", payout: "bg-emerald-500/10 text-emerald-400", message: "bg-neutral-100 text-neutral-900", system: "bg-pink-500/10 text-pink-400" };
 
 export default function NotificationsPage() {
-  const { notifications: mockNotifications } = useNotifications();
+  const { notifications: apiNotifications, isLoading, mutate } = useNotifications();
+  const { token } = useAuth();
 
-  const [notifications, setNotifications] = useState(mockNotifications);
+  // Use API notifications if available, else fallback to mock data
+  const notificationsSource = apiNotifications.length > 0 ? apiNotifications : fallbackNotifications;
+  const [notifications, setNotifications] = useState(notificationsSource);
 
-  const markAllRead = () => setNotifications(notifications.map((n: { id: string, type: string, title: string, message: string, createdAt: string, read: boolean }) => ({ ...n, read: true })));
+  // Sync state when API data arrives
+  useEffect(() => {
+    if (apiNotifications.length > 0) {
+      setNotifications(apiNotifications);
+    } else if (!isLoading && apiNotifications.length === 0) {
+      setNotifications(fallbackNotifications);
+    }
+  }, [apiNotifications, isLoading]);
+
+  const markAllRead = async () => {
+    setNotifications(notifications.map((n: { id: string, type: string, title: string, message: string, createdAt: string, read: boolean }) => ({ ...n, read: true })));
+    try {
+      await apiPut("/notifications/read-all", {}, token);
+      mutate();
+    } catch {
+      // Silently handle error — local state already updated
+    }
+  };
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
@@ -27,6 +49,19 @@ export default function NotificationsPage() {
         </button>
       </div>
 
+      {isLoading ? (
+        <div className="glass-card rounded-2xl p-10 text-center text-neutral-600">
+          <div className="inline-flex items-center gap-2">
+            <Loader className="w-4 h-4 animate-spin" /> Loading notifications...
+          </div>
+        </div>
+      ) : notifications.length === 0 ? (
+        <div className="glass-card rounded-2xl p-10 text-center">
+          <Bell className="w-12 h-12 text-neutral-300 mx-auto mb-4" />
+          <p className="text-neutral-600 text-lg font-medium">No notifications yet</p>
+          <p className="text-neutral-500 text-sm mt-2">You&apos;ll see updates here when there&apos;s activity on your tasks.</p>
+        </div>
+      ) : (
       <div className="glass-card rounded-2xl overflow-hidden divide-y divide-neutral-200">
         {notifications.map((notif, i) => {
           const Icon = iconMap[notif.type] || Bell;
@@ -53,6 +88,7 @@ export default function NotificationsPage() {
           );
         })}
       </div>
+      )}
     </div>
   );
 }

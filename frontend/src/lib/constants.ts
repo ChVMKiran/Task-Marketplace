@@ -1,6 +1,6 @@
-export const SITE_NAME = "CampusCraft";
+export const SITE_NAME = "Task-Marketplace";
 export const SITE_DESCRIPTION = "The premium creative marketplace built for college students. Post tasks, submit work, win contests, and earn.";
-export const SITE_URL = "https://campuscraft.io";
+export const SITE_URL = "https://Task-Marketplace.io";
 
 export const TASK_CATEGORIES = [
   { value: "graphic-design", label: "Graphic Design", icon: "Palette", color: "#8B5CF6" },

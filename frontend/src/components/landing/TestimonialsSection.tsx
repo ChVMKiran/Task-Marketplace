@@ -7,7 +7,7 @@ const testimonials = [
     name: "Riya Kapoor",
     role: "UI/UX Designer",
     college: "NIT Trichy",
-    text: "CampusCraft helped me build a real portfolio while earning. Won 12 contests in my first semester!",
+    text: "Task-Marketplace helped me build a real portfolio while earning. Won 12 contests in my first semester!",
     rating: 5,
     earned: "₹85,000",
     avatarColor: "from-neutral-200 to-neutral-400",
@@ -52,7 +52,7 @@ const testimonials = [
     name: "Dev Sharma",
     role: "Full Stack Developer",
     college: "DTU Delhi",
-    text: "Built my entire freelancing career on CampusCraft during college. The reputation system helped me land internships too!",
+    text: "Built my entire freelancing career on Task-Marketplace during college. The reputation system helped me land internships too!",
     rating: 5,
     earned: "₹2,10,000",
     avatarColor: "from-neutral-300 to-neutral-300",
@@ -83,7 +83,7 @@ export default function TestimonialsSection() {
             <span className="gradient-text">45,000+</span> students
           </h2>
           <p className="text-neutral-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            See what our community has to say about their CampusCraft experience.
+            See what our community has to say about their Task-Marketplace experience.
           </p>
         </motion.div>
 

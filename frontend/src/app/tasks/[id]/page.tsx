@@ -55,9 +55,8 @@ export default function TaskDetailPage({ params }: { params: Promise<{ id: strin
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-2xl p-6">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className={`badge ${
-                  task.status === "open" ? "badge-open" : task.status === "in-progress" ? "badge-progress" : "badge-completed"
-                }`}>
+                <span className={`badge ${task.status === "open" ? "badge-open" : task.status === "in-progress" ? "badge-progress" : "badge-completed"
+                  }`}>
                   {task.status.charAt(0).toUpperCase() + task.status.slice(1)}
                 </span>
                 {task.priority === "high" || task.priority === "urgent" ? (
@@ -77,7 +76,7 @@ export default function TaskDetailPage({ params }: { params: Promise<{ id: strin
                 {task.client && task.client.name ? task.client.name.split(" ").map(n => n[0]).join("") : "CC"}
               </div>
               <div>
-                <div className="text-sm font-medium text-black">{task.client?.name || "CampusCraft"}</div>
+                <div className="text-sm font-medium text-black">{task.client?.name || "Task-Marketplace"}</div>
                 <div className="flex items-center gap-1 text-xs text-neutral-600">
                   <Star className="w-3 h-3 fill-yellow-500 text-yellow-500" /> {task.client?.rating || "N/A"} · {task.client?.college || "Campus"}
                 </div>
@@ -144,7 +143,7 @@ export default function TaskDetailPage({ params }: { params: Promise<{ id: strin
               <div className="flex justify-between"><span className="text-neutral-600 flex items-center gap-2"><Eye className="w-4 h-4" /> Visibility</span><span className="text-black capitalize">{task.visibility}</span></div>
             </div>
             <div className="h-px bg-white/5" />
-            <Link href="/dashboard/submissions/new" className="btn-primary w-full py-3 flex items-center justify-center gap-2 text-sm">
+            <Link href={`/dashboard/submissions/new?taskId=${resolvedParams.id}`} className="btn-primary w-full py-3 flex items-center justify-center gap-2 text-sm">
               <Upload className="w-4 h-4" /> Submit Your Work
             </Link>
           </motion.div>

@@ -6,6 +6,7 @@ import {
   ChevronRight, Sparkles, Eye, FileCheck, Star
 } from "lucide-react";
 import { useTasks, useSubmissions, useNotifications } from "@/lib/api";
+import { mockSubmissions as fallbackSubmissions, mockNotifications as fallbackNotifications } from "@/lib/mock-data";
 import { formatCurrency, formatRelativeTime } from "@/lib/utils";
 import { useAuth } from "@/lib/auth-context";
 
@@ -21,9 +22,12 @@ const fadeUp = { hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, tra
 
 export default function DashboardPage() {
   const { user } = useAuth();
-  const { tasks: mockTasks, isLoading: loadingTasks } = useTasks();
-  const { submissions: mockSubmissions, isLoading: loadingSubs } = useSubmissions();
-  const { notifications: mockNotifications, isLoading: loadingNotifs } = useNotifications();
+  const { tasks, isLoading: loadingTasks } = useTasks();
+  const { submissions: apiSubmissions, isLoading: loadingSubs } = useSubmissions();
+  const { notifications: apiNotifications, isLoading: loadingNotifs } = useNotifications();
+
+  const submissions = apiSubmissions.length > 0 ? apiSubmissions : fallbackSubmissions;
+  const notifications = apiNotifications.length > 0 ? apiNotifications : fallbackNotifications;
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
@@ -79,7 +83,7 @@ export default function DashboardPage() {
             <Link href="/tasks" className="text-xs text-neutral-900 hover:text-neutral-900">View all</Link>
           </div>
           <div className="divide-y divide-neutral-200">
-            {mockTasks.slice(0, 5).map((task, i) => (
+            {tasks.slice(0, 5).map((task, i) => (
               <Link key={task.id} href={`/tasks/${task.id}`} className="flex items-center gap-4 px-5 py-3.5 hover:bg-neutral-100/50 transition-colors">
                 <div className={`w-2 h-2 rounded-full shrink-0 ${
                   task.priority === "urgent" ? "bg-red-400" : task.priority === "high" ? "bg-yellow-400" : "bg-neutral-100"
@@ -103,7 +107,7 @@ export default function DashboardPage() {
             <h3 className="text-sm font-semibold text-black">Recent Activity</h3>
           </div>
           <div className="divide-y divide-neutral-200">
-            {mockNotifications.slice(0, 5).map((notif) => (
+            {notifications.slice(0, 5).map((notif) => (
               <div key={notif.id} className="px-5 py-3.5 flex items-start gap-3">
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
                   notif.type === "submission" ? "bg-neutral-100" :
@@ -133,7 +137,7 @@ export default function DashboardPage() {
           <Link href="/dashboard/submissions" className="text-xs text-neutral-900 hover:text-neutral-900">View all</Link>
         </div>
         <div className="divide-y divide-neutral-200">
-          {mockSubmissions.map((sub) => (
+          {submissions.map((sub) => (
             <div key={sub.id} className="flex items-center gap-4 px-5 py-4 hover:bg-neutral-100/50 transition-colors">
               <div className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center">
                 <FileCheck className="w-5 h-5 text-neutral-600" />

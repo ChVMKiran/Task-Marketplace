@@ -4,7 +4,7 @@ import { AuthProvider } from "@/lib/auth-context";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "CampusCraft — The Creative Marketplace for College Students",
+  title: "Task-Marketplace — The Creative Marketplace for College Students",
   description:
     "Post tasks, submit creative work, win contests, and earn. The premium freelancing platform built for college talent.",
   keywords: ["freelancing", "college", "marketplace", "design", "creative", "contest"],

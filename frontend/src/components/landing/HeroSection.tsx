@@ -20,10 +20,10 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 }
 
 const stats = [
-  { icon: Users,      value: 45000, suffix: "+",  label: "Students" },
-  { icon: TrendingUp, value: 12800, suffix: "+",  label: "Tasks Completed" },
-  { icon: Star,       value: 23,    suffix: "L+", label: "Paid Out" },
-  { icon: Sparkles,   value: 50,    suffix: "+",  label: "Colleges" },
+  { icon: Users, value: 45000, suffix: "+", label: "Students" },
+  { icon: TrendingUp, value: 12800, suffix: "+", label: "Tasks Completed" },
+  { icon: Star, value: 23, suffix: "L+", label: "Paid Out" },
+  { icon: Sparkles, value: 50, suffix: "+", label: "Colleges" },
 ];
 
 const trustBadges = [
@@ -185,7 +185,7 @@ export default function HeroSection() {
                   <div className="flex-1 flex justify-center">
                     <div className="flex items-center gap-2 px-6 py-1.5 rounded-full bg-white border border-neutral-300 text-xs text-black font-bold shadow-sm tracking-wide">
                       <div className="w-2 h-2 rounded-full bg-black" />
-                      campuscraft.io/dashboard
+                      Task-Marketplace.io/dashboard
                     </div>
                   </div>
                 </div>
@@ -193,9 +193,9 @@ export default function HeroSection() {
                 {/* Stat cards */}
                 <div className="p-5 grid grid-cols-1 md:grid-cols-3 gap-4 bg-white">
                   {[
-                    { label: "Active Tasks",    value: "24",        change: "+12%" },
-                    { label: "Total Earnings",  value: "₹1,25,000", change: "+28%" },
-                    { label: "Win Rate",        value: "68%",       change: "+5%"  },
+                    { label: "Active Tasks", value: "24", change: "+12%" },
+                    { label: "Total Earnings", value: "₹1,25,000", change: "+28%" },
+                    { label: "Win Rate", value: "68%", change: "+5%" },
                   ].map((card, i) => (
                     <motion.div
                       key={i}

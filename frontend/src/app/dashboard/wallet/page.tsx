@@ -1,12 +1,18 @@
 "use client";
 import { motion } from "framer-motion";
-import { Wallet, ArrowUpRight, ArrowDownRight, Plus, Download, TrendingUp, Clock, CreditCard, RefreshCw } from "lucide-react";
+import { Wallet, ArrowUpRight, ArrowDownRight, Plus, Download, TrendingUp, Clock, CreditCard, RefreshCw, Loader } from "lucide-react";
+import { useWallet } from "@/lib/api";
 import { mockWallet } from "@/lib/mock-data";
 import { formatCurrency, formatDate } from "@/lib/utils";
 
 const fadeUp = { hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } };
 
 export default function WalletPage() {
+  const { wallet: apiWallet, isLoading, mutate } = useWallet();
+
+  // Use API data if available, else fallback to mock
+  const wallet = apiWallet || mockWallet;
+
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
@@ -23,10 +29,10 @@ export default function WalletPage() {
       {/* Balance cards */}
       <motion.div variants={{ visible: { transition: { staggerChildren: 0.08 } } }} initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: "Available Balance", value: formatCurrency(mockWallet.balance), icon: Wallet, color: "#8B5CF6" },
-          { label: "Pending", value: formatCurrency(mockWallet.pendingAmount), icon: Clock, color: "#F59E0B" },
-          { label: "Total Earned", value: formatCurrency(mockWallet.totalEarnings), icon: TrendingUp, color: "#10B981" },
-          { label: "Withdrawn", value: formatCurrency(mockWallet.totalWithdrawals), icon: CreditCard, color: "#3B82F6" },
+          { label: "Available Balance", value: formatCurrency(wallet.balance), icon: Wallet, color: "#8B5CF6" },
+          { label: "Pending", value: formatCurrency(wallet.pendingAmount), icon: Clock, color: "#F59E0B" },
+          { label: "Total Earned", value: formatCurrency(wallet.totalEarnings), icon: TrendingUp, color: "#10B981" },
+          { label: "Withdrawn", value: formatCurrency(wallet.totalWithdrawals), icon: CreditCard, color: "#3B82F6" },
         ].map((card, i) => (
           <motion.div key={i} variants={fadeUp} className="glass-card rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
@@ -44,10 +50,17 @@ export default function WalletPage() {
       <div className="glass-card rounded-2xl overflow-hidden">
         <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between">
           <h3 className="text-sm font-semibold text-black">Transaction History</h3>
-          <button className="text-xs text-neutral-900 hover:text-neutral-900 flex items-center gap-1"><RefreshCw className="w-3 h-3" /> Refresh</button>
+          <button onClick={() => mutate()} className="text-xs text-neutral-900 hover:text-neutral-900 flex items-center gap-1"><RefreshCw className="w-3 h-3" /> Refresh</button>
         </div>
+        {isLoading ? (
+          <div className="p-10 text-center text-neutral-600">
+            <div className="inline-flex items-center gap-2">
+              <Loader className="w-4 h-4 animate-spin" /> Loading transactions...
+            </div>
+          </div>
+        ) : (
         <div className="divide-y divide-neutral-200">
-          {mockWallet.transactions.map((txn) => (
+          {wallet.transactions.map((txn) => (
             <div key={txn.id} className="flex items-center gap-4 px-5 py-4 hover:bg-neutral-100/50 transition-colors">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                 txn.type === "payout" ? "bg-emerald-500/10" :
@@ -76,6 +89,7 @@ export default function WalletPage() {
             </div>
           ))}
         </div>
+        )}
       </div>
     </div>
   );

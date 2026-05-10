@@ -7,7 +7,7 @@ const { Submission, Notification, Conversation, Message } = require('./models');
 
 dotenv.config();
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/campuscraft';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/Task-Marketplace';
 
 async function seedDatabase() {
   try {
@@ -21,13 +21,13 @@ async function seedDatabase() {
     await Notification.deleteMany({});
     await Conversation.deleteMany({});
     await Message.deleteMany({});
-    
+
     console.log('🧹 Cleared existing database');
 
     // Create Admin/Client
     const client = await User.create({
       name: 'Priya Sharma',
-      email: 'priya@campuscraft.io',
+      email: 'priya@Task-Marketplace.io',
       password: 'password123',
       role: 'client',
       department: 'Marketing',
@@ -40,7 +40,7 @@ async function seedDatabase() {
     // Create Contributor
     const contributor = await User.create({
       name: 'Arjun Mehta',
-      email: 'arjun@campuscraft.io',
+      email: 'arjun@Task-Marketplace.io',
       password: 'password123',
       role: 'contributor',
       department: 'Computer Science',
@@ -113,7 +113,7 @@ async function seedDatabase() {
       {
         user: contributor._id,
         type: 'system',
-        title: 'Welcome to CampusCraft!',
+        title: 'Welcome to Task-Marketplace!',
         message: 'Your account has been successfully verified. Start browsing tasks today.',
         read: false
       },

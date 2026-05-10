@@ -68,11 +68,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                isActive(item.href)
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${isActive(item.href)
                   ? "bg-neutral-100 text-neutral-900 border border-neutral-200"
                   : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/50"
-              }`}
+                }`}
             >
               <item.icon className="w-4.5 h-4.5 shrink-0" />
               {item.label}
@@ -130,9 +129,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
                 {navItems.map((item) => (
                   <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                      isActive(item.href) ? "bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/50"
-                    }`}>
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${isActive(item.href) ? "bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/50"
+                      }`}>
                     <item.icon className="w-4.5 h-4.5" /> {item.label}
                   </Link>
                 ))}
@@ -177,7 +175,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   >
                     <div className="p-3 border-b border-neutral-200">
                       <div className="text-sm font-medium text-black">{user?.name || "User"}</div>
-                      <div className="text-xs text-neutral-600">{user?.email || "user@campuscraft.io"}</div>
+                      <div className="text-xs text-neutral-600">{user?.email || "user@Task-Marketplace.io"}</div>
                     </div>
                     <div className="p-1.5">
                       <Link href="/dashboard/profile" onClick={() => setProfileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-neutral-600 hover:bg-neutral-100 transition-colors">

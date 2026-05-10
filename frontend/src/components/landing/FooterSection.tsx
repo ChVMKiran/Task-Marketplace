@@ -14,8 +14,8 @@ const footerLinks = [
   {
     title: "Product",
     links: [
-      { label: "Features",    href: "#features" },
-      { label: "Pricing",     href: "#pricing" },
+      { label: "Features", href: "#features" },
+      { label: "Pricing", href: "#pricing" },
       { label: "Marketplace", href: "/tasks" },
       { label: "AI Insights", href: "#" },
     ],
@@ -23,29 +23,29 @@ const footerLinks = [
   {
     title: "Company",
     links: [
-      { label: "About",    href: "#" },
-      { label: "Blog",     href: "#" },
-      { label: "Careers",  href: "#" },
-      { label: "Contact",  href: "#" },
+      { label: "About", href: "#" },
+      { label: "Blog", href: "#" },
+      { label: "Careers", href: "#" },
+      { label: "Contact", href: "#" },
     ],
   },
   {
     title: "Legal",
     links: [
-      { label: "Privacy",   href: "#" },
-      { label: "Terms",     href: "#" },
-      { label: "Cookies",   href: "#" },
-      { label: "Licenses",  href: "#" },
+      { label: "Privacy", href: "#" },
+      { label: "Terms", href: "#" },
+      { label: "Cookies", href: "#" },
+      { label: "Licenses", href: "#" },
     ],
   },
 ];
 
 const socialLinks = [
-  { icon: Twitter,   href: "#", label: "Twitter" },
-  { icon: Github,    href: "#", label: "GitHub" },
-  { icon: Linkedin,  href: "#", label: "LinkedIn" },
+  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Github, href: "#", label: "GitHub" },
+  { icon: Linkedin, href: "#", label: "LinkedIn" },
   { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Mail,      href: "#", label: "Email" },
+  { icon: Mail, href: "#", label: "Email" },
 ];
 
 export default function FooterSection() {
@@ -89,7 +89,7 @@ export default function FooterSection() {
               <span className="gradient-text">unleash your talent?</span>
             </h2>
             <p className="text-lg text-neutral-600 mb-10 max-w-xl mx-auto leading-relaxed">
-              Join thousands of college students already creating, competing, and earning on CampusCraft.
+              Join thousands of college students already creating, competing, and earning on Task-Marketplace.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -112,8 +112,8 @@ export default function FooterSection() {
             <div className="mt-12 flex flex-wrap items-center justify-center gap-8">
               {[
                 { number: "45K+", label: "Students" },
-                { number: "50+",  label: "Colleges" },
-                { number: "₹23L+",label: "Paid Out" },
+                { number: "50+", label: "Colleges" },
+                { number: "₹23L+", label: "Paid Out" },
               ].map((item) => (
                 <div key={item.label} className="text-center">
                   <div className="text-2xl font-extrabold text-black">{item.number}</div>
@@ -188,7 +188,7 @@ export default function FooterSection() {
           <div className="gradient-divider mb-8" />
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <Link href="/" onClick={handleBrandClick} className="text-xs text-neutral-600 hover:text-neutral-900 transition-colors">
-              © 2026 CampusCraft. All rights reserved.
+              © 2026 Task-Marketplace. All rights reserved.
             </Link>
             <p className="text-xs text-neutral-600">
               Made with ❤️ for college students across India

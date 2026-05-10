@@ -77,7 +77,7 @@ export function useNotifications() {
 
 export function useMessages() {
   const { token } = useAuth();
-  const { data, error, isLoading } = useSWR(token ? ["/messages", token] : null, fetcher, {
+  const { data, error, isLoading } = useSWR(token ? ["/messages/conversations", token] : null, fetcher, {
     onError: () => {},
   });
   return { conversations: data?.conversations?.map((c: any) => ({...c, id: c._id || c.id})) || [], isLoading: isLoading && !data, isError: error };
@@ -97,4 +97,36 @@ export function usePayments() {
     onError: () => {},
   });
   return { payments: data?.payments?.map((p: any) => ({...p, id: p._id || p.id})) || [], isLoading: isLoading && !data, isError: error };
+}
+
+export function useWallet() {
+  const { token } = useAuth();
+  const { data, error, isLoading, mutate } = useSWR(token ? ["/payments/wallet", token] : null, fetcher, {
+    onError: () => {},
+  });
+  return { wallet: data?.wallet || null, isLoading: isLoading && !data, isError: error, mutate };
+}
+
+export async function apiPost(url: string, body: Record<string, unknown>, token: string | null) {
+  const headers: HeadersInit = { "Content-Type": "application/json" };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+  const res = await fetch(`${apiUrl}${url}`, { method: "POST", headers, body: JSON.stringify(body) });
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({ message: "Request failed" }));
+    throw new Error(error.message || "Request failed");
+  }
+  return res.json();
+}
+
+export async function apiPut(url: string, body: Record<string, unknown>, token: string | null) {
+  const headers: HeadersInit = { "Content-Type": "application/json" };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+  const res = await fetch(`${apiUrl}${url}`, { method: "PUT", headers, body: JSON.stringify(body) });
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({ message: "Request failed" }));
+    throw new Error(error.message || "Request failed");
+  }
+  return res.json();
 }

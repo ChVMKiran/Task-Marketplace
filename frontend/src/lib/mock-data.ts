@@ -3,7 +3,7 @@ import { User, Task, Submission, Transaction, Notification, Conversation, Messag
 export const mockUser: User = {
   id: "usr_001",
   name: "Arjun Mehta",
-  email: "arjun@campuscraft.io",
+  email: "arjun@Task-Marketplace.io",
   role: "contributor",
   avatar: "",
   department: "Computer Science",
@@ -23,7 +23,7 @@ export const mockUser: User = {
 export const mockClient: User = {
   id: "usr_002",
   name: "Priya Sharma",
-  email: "priya@campuscraft.io",
+  email: "priya@Task-Marketplace.io",
   role: "client",
   avatar: "",
   department: "Marketing",
@@ -260,7 +260,7 @@ export const mockNotifications: Notification[] = [
   { id: "notif_003", type: "task", title: "Deadline Approaching", message: "Task 'Instagram Reels' deadline is in 2 days", read: false, actionUrl: "/tasks/task_003", createdAt: "2026-05-06T08:00:00" },
   { id: "notif_004", type: "submission", title: "Submission Shortlisted!", message: "Your submission for 'TechFest Poster' has been shortlisted", read: true, actionUrl: "/dashboard/submissions", createdAt: "2026-05-05T16:45:00" },
   { id: "notif_005", type: "message", title: "New Message", message: "Priya Sharma sent you a message about 'Portfolio Website'", read: true, actionUrl: "/dashboard/messages", createdAt: "2026-05-05T14:20:00" },
-  { id: "notif_006", type: "system", title: "Welcome to CampusCraft!", message: "Your account has been verified. Start exploring tasks!", read: true, actionUrl: "/tasks", createdAt: "2026-05-01T10:00:00" },
+  { id: "notif_006", type: "system", title: "Welcome to Task-Marketplace!", message: "Your account has been verified. Start exploring tasks!", read: true, actionUrl: "/tasks", createdAt: "2026-05-01T10:00:00" },
 ];
 
 export const mockConversations: Conversation[] = [

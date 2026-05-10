@@ -1,7 +1,7 @@
 {
-  "name": "campuscraft-backend",
+  "name": "Task-Marketplace-backend",
   "version": "1.0.0",
-  "description": "CampusCraft Backend API",
+  "description": "Task-Marketplace Backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

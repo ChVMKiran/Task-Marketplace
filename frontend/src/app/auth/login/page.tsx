@@ -58,7 +58,7 @@ export default function LoginPage() {
             <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center shadow-md">
               <Zap className="w-4.5 h-4.5 text-white" />
             </div>
-            <span className="text-xl font-black text-black tracking-tight">CampusCraft</span>
+            <span className="text-xl font-black text-black tracking-tight">Task-Marketplace</span>
           </Link>
 
           <h1 className="text-3xl font-black text-black mb-2 tracking-tight">Welcome back</h1>
@@ -149,13 +149,13 @@ export default function LoginPage() {
       <div className="hidden lg:flex flex-1 items-center justify-center relative overflow-hidden bg-neutral-50 border-l border-neutral-200">
         <div className="absolute top-1/3 left-1/3 w-80 h-80 bg-neutral-200/50 rounded-full blur-[100px]" />
         <div className="absolute bottom-1/3 right-1/3 w-60 h-60 bg-white rounded-full blur-[80px]" />
-        
+
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 0.5 }} className="relative z-10 text-center p-12 max-w-md">
           <div className="w-24 h-24 rounded-3xl bg-white flex items-center justify-center mx-auto mb-8 shadow-xl shadow-neutral-200/50 border border-neutral-100">
             <Zap className="w-12 h-12 text-black" />
           </div>
           <h2 className="text-4xl font-black text-black mb-4 tracking-tight leading-tight">Start Creating<br />Today</h2>
-          <p className="text-neutral-500 font-medium leading-relaxed">Join 45,000+ students who are building their careers through creative work on CampusCraft.</p>
+          <p className="text-neutral-500 font-medium leading-relaxed">Join 45,000+ students who are building their careers through creative work on Task-Marketplace.</p>
         </motion.div>
       </div>
     </div>
