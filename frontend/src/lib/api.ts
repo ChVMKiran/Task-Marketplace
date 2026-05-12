@@ -2,14 +2,14 @@
 import useSWR from "swr";
 import { useAuth } from "./auth-context";
 import { mockTasks } from "./mock-data";
+import { API_BASE_URL } from "./constants";
 
 const fetcher = async ([url, token]: [string, string | null]) => {
   const headers: HeadersInit = { "Content-Type": "application/json" };
   if (token) headers["Authorization"] = `Bearer ${token}`;
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
   
   try {
-    const res = await fetch(`${apiUrl}${url}`, { 
+    const res = await fetch(`${API_BASE_URL}${url}`, { 
       headers,
       signal: AbortSignal.timeout(5000) // 5 second timeout
     });
@@ -110,8 +110,7 @@ export function useWallet() {
 export async function apiPost(url: string, body: Record<string, unknown>, token: string | null) {
   const headers: HeadersInit = { "Content-Type": "application/json" };
   if (token) headers["Authorization"] = `Bearer ${token}`;
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-  const res = await fetch(`${apiUrl}${url}`, { method: "POST", headers, body: JSON.stringify(body) });
+  const res = await fetch(`${API_BASE_URL}${url}`, { method: "POST", headers, body: JSON.stringify(body) });
   if (!res.ok) {
     const error = await res.json().catch(() => ({ message: "Request failed" }));
     throw new Error(error.message || "Request failed");
@@ -122,8 +121,7 @@ export async function apiPost(url: string, body: Record<string, unknown>, token:
 export async function apiPut(url: string, body: Record<string, unknown>, token: string | null) {
   const headers: HeadersInit = { "Content-Type": "application/json" };
   if (token) headers["Authorization"] = `Bearer ${token}`;
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-  const res = await fetch(`${apiUrl}${url}`, { method: "PUT", headers, body: JSON.stringify(body) });
+  const res = await fetch(`${API_BASE_URL}${url}`, { method: "PUT", headers, body: JSON.stringify(body) });
   if (!res.ok) {
     const error = await res.json().catch(() => ({ message: "Request failed" }));
     throw new Error(error.message || "Request failed");

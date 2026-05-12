@@ -1,6 +1,7 @@
 export const SITE_NAME = "Task-Marketplace";
 export const SITE_DESCRIPTION = "The premium creative marketplace built for college students. Post tasks, submit work, win contests, and earn.";
 export const SITE_URL = "https://Task-Marketplace.io";
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://task-marketplace.onrender.com/api";
 
 export const TASK_CATEGORIES = [
   { value: "graphic-design", label: "Graphic Design", icon: "Palette", color: "#8B5CF6" },

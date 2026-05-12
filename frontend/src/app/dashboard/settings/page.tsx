@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { User, Bell, Shield, Palette, Globe, Key, Mail, Smartphone, Moon, Sun, Monitor, Loader, CheckCircle, AlertCircle } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { apiPut } from "@/lib/api";
+import { API_BASE_URL } from "@/lib/constants";
 
 function ToggleSwitch({ enabled = false, onChange }: { enabled?: boolean; onChange?: () => void }) {
   return (
@@ -44,8 +45,7 @@ export default function SettingsPage() {
     const fetchProfile = async () => {
       if (!token) return;
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        const res = await fetch(`${apiUrl}/users/profile`, {
+        const res = await fetch(`${API_BASE_URL}/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
           signal: AbortSignal.timeout(5000),
         });

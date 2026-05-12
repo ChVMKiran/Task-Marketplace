@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Star, Trophy, Briefcase, MapPin, Calendar, ExternalLink, Edit3, Award, TrendingUp, Loader } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { mockUser } from "@/lib/mock-data";
+import { API_BASE_URL } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
 import { useState, useEffect } from "react";
 
@@ -18,8 +19,7 @@ export default function ProfilePage() {
         return;
       }
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        const res = await fetch(`${apiUrl}/users/profile`, {
+        const res = await fetch(`${API_BASE_URL}/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
           signal: AbortSignal.timeout(5000),
         });
